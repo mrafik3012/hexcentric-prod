@@ -1,0 +1,6 @@
+# Netlify / compatible static host cache rules
+/assets/logo.svg
+  Cache-Control: public, max-age=0, must-revalidate
+
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
