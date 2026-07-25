@@ -107,7 +107,7 @@ export function initProjectFilters() {
 
     function movePill(btn, animatePill = true) {
       if (!pill || !btn) return;
-      const isWrapped = bar.classList.contains('filter-bar--wrap') && window.innerWidth <= 640;
+      const isWrapped = bar.classList.contains('filter-bar--wrap') && window.innerWidth <= 900;
       if (isWrapped) {
         pill.style.opacity = '0';
         return;

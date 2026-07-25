@@ -1392,6 +1392,12 @@ textarea.form-control {
   background: var(--base-950);
   background-image: var(--hero-glow);
   border-bottom: 1px solid rgba(255,255,255,0.05);
+  overflow-x: clip;
+}
+
+.page-hero .filter-scroll {
+  width: 100%;
+  max-width: 100%;
 }
 
 .breadcrumb {
@@ -1796,13 +1802,6 @@ textarea.form-control {
   .hero-actions { flex-direction: column; align-items: stretch; }
   .hero-actions .btn { text-align: center; }
   .project-meta { flex-wrap: wrap; gap: 1rem; }
-  .filter-bar--wrap .filter-btn { flex: 1 1 auto; text-align: center; min-width: calc(50% - 0.5rem); }
-  .filter-bar--wrap .filter-pill-bg { display: none; }
-  .filter-bar--wrap .filter-btn.active {
-    background: linear-gradient(135deg, var(--brand-primary), rgba(196, 98, 45, 0.75));
-    color: #fff;
-    box-shadow: 0 4px 16px rgba(196, 98, 45, 0.35);
-  }
   #enquiry-form { padding: 1.25rem; }
 }
 
@@ -2093,6 +2092,66 @@ textarea.form-control {
 .filter-bar--wrap {
   border-radius: 12px;
   width: 100%;
+  box-sizing: border-box;
+}
+
+/* Mobile / tablet: 2-column chip grid — no horizontal page scroll */
+@media (max-width: 900px) {
+  .filter-scroll {
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  .filter-bar--wrap {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .filter-bar--wrap .filter-pill-bg {
+    display: none !important;
+  }
+
+  .filter-bar--wrap .filter-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.35;
+    padding: 0.625rem 0.5rem;
+    font-size: 0.8125rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.03);
+    box-sizing: border-box;
+  }
+
+  .filter-bar--wrap .filter-btn.active {
+    background: linear-gradient(135deg, var(--brand-primary), rgba(196, 98, 45, 0.8));
+    color: #fff;
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(196, 98, 45, 0.35);
+  }
+
+  .filter-bar--wrap .filter-btn:hover:not(.active) {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--base-100);
+  }
+}
+
+@media (max-width: 900px) and (min-width: 520px) {
+  .filter-bar--wrap {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 /* Sliding background pill — position driven by Motion spring (js/motion.js) */
