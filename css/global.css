@@ -65,6 +65,9 @@
   --shadow-card: 0 4px 24px rgba(0, 0, 0, 0.4);
   --shadow-card-hover: 0 8px 40px rgba(196, 98, 45, 0.2), 0 4px 24px rgba(0, 0, 0, 0.5);
   --shadow-nav: 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  /* 21st.dev compatibility token */
+  --primary-hover: rgba(196, 98, 45, 0.25);
 }
 
 /* ─────────────────────────────────────────
@@ -1756,4 +1759,663 @@ textarea.form-control {
   .site-header, .site-footer, .mobile-nav { display: none; }
   body { background: #fff; color: #000; }
   a { color: #000; text-decoration: underline; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   21ST.DEV PATTERN LIBRARY — HEXCENTRIC ADAPTATIONS
+   Sources: Glowing Card [id:5328], Animated Tabs Bg [id:8315],
+            GlowingHero [id:7935], Glassmorphism Nav [id:15025]
+   Adapted to: #C4622D copper · #4A6274 steel · #111820 charcoal
+═══════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────
+   PATTERN 1 — HERO AMBIENT ORB + GRID
+   Derived from: GlowingHero [id:7935],
+   Hero Static Radial Gradient [id:19151]
+───────────────────────────────────────── */
+
+/* Blueprint grid overlay for hero */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(196, 98, 45, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(196, 98, 45, 0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black 0%, transparent 80%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 70% at 50% 30%, black 0%, transparent 80%);
+}
+
+/* Pulsing copper orb — the signature ambient glow */
+.hero-orb {
+  position: absolute;
+  top: -180px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(196, 98, 45, 0.22) 0%,
+    rgba(196, 98, 45, 0.10) 30%,
+    rgba(74, 98, 116, 0.06) 60%,
+    transparent 70%
+  );
+  pointer-events: none;
+  animation: orbPulse 6s ease-in-out infinite;
+  filter: blur(2px);
+}
+
+@keyframes orbPulse {
+  0%, 100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+  50%       { opacity: 1;   transform: translateX(-50%) scale(1.07); }
+}
+
+/* Secondary side orb for depth */
+.hero-orb-secondary {
+  position: absolute;
+  bottom: -80px;
+  right: -60px;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(74, 98, 116, 0.18) 0%,
+    rgba(74, 98, 116, 0.08) 40%,
+    transparent 65%
+  );
+  pointer-events: none;
+  animation: orbPulse 8s ease-in-out infinite reverse;
+  filter: blur(4px);
+}
+
+/* Horizontal scan beam — thin animated light ray across hero */
+.hero-beam {
+  position: absolute;
+  left: -10%;
+  width: 120%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(196, 98, 45, 0.4) 40%,
+    rgba(196, 98, 45, 0.8) 50%,
+    rgba(196, 98, 45, 0.4) 60%,
+    transparent 100%
+  );
+  top: 38%;
+  pointer-events: none;
+  animation: beamScan 8s ease-in-out infinite;
+  opacity: 0;
+}
+
+@keyframes beamScan {
+  0%   { top: 20%; opacity: 0; }
+  10%  { opacity: 0.6; }
+  80%  { opacity: 0.3; }
+  90%  { top: 75%; opacity: 0; }
+  100% { top: 75%; opacity: 0; }
+}
+
+/* ─────────────────────────────────────────
+   PATTERN 2 — GLOWING CARD (21st.dev [id:5328])
+   Ray streak + Corner scan lines + Ambient dot
+   Adapted: copper #C4622D glow system
+───────────────────────────────────────── */
+
+/* Apply to: .card, .service-card, .project-card, .testimonial-card, .compliance-badge */
+.card-glow {
+  position: relative;
+  overflow: hidden;
+}
+
+/* The RAY — diagonal light streak that sweeps on hover */
+.card-glow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 10%,
+    rgba(196, 98, 45, 0.07) 40%,
+    rgba(228, 160, 80, 0.12) 50%,
+    rgba(196, 98, 45, 0.07) 60%,
+    transparent 90%
+  );
+  transform: skewX(-15deg);
+  transition: left var(--duration-slow) var(--ease-premium);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.card-glow:hover::before {
+  left: 140%;
+}
+
+/* The GLOW BORDER — conic gradient rotating border on hover */
+.card-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(
+    135deg,
+    rgba(196, 98, 45, 0) 0%,
+    rgba(196, 98, 45, 0) 40%,
+    rgba(196, 98, 45, 0.6) 50%,
+    rgba(196, 98, 45, 0) 60%,
+    rgba(196, 98, 45, 0) 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity var(--duration-mid) ease,
+              background-position var(--duration-slow) ease;
+  pointer-events: none;
+  background-size: 300% 300%;
+  background-position: 0% 0%;
+}
+
+.card-glow:hover::after {
+  opacity: 1;
+  background-position: 100% 100%;
+}
+
+/* Animated corner scan lines — 4 edges light up in sequence on hover */
+.card-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity var(--duration-fast) ease;
+}
+
+.card-glow:hover .card-lines { opacity: 1; }
+
+.card-line {
+  position: absolute;
+  background: linear-gradient(to right, transparent, var(--brand-primary), transparent);
+}
+
+.card-line--top {
+  top: 0; left: -100%; right: auto;
+  width: 60%; height: 1px;
+  animation: lineTop 2.4s ease-in-out infinite;
+}
+.card-line--bottom {
+  bottom: 0; right: -100%; left: auto;
+  width: 60%; height: 1px;
+  background: linear-gradient(to left, transparent, var(--brand-primary), transparent);
+  animation: lineBottom 2.4s ease-in-out infinite 1.2s;
+}
+.card-line--left {
+  left: 0; top: -100%; bottom: auto;
+  width: 1px; height: 60%;
+  background: linear-gradient(to bottom, transparent, var(--brand-primary), transparent);
+  animation: lineLeft 2.4s ease-in-out infinite 0.6s;
+}
+.card-line--right {
+  right: 0; bottom: -100%; top: auto;
+  width: 1px; height: 60%;
+  background: linear-gradient(to top, transparent, var(--brand-primary), transparent);
+  animation: lineRight 2.4s ease-in-out infinite 1.8s;
+}
+
+@keyframes lineTop    { 0% { left: -60%; } 100% { left: 160%; } }
+@keyframes lineBottom { 0% { right: -60%; } 100% { right: 160%; } }
+@keyframes lineLeft   { 0% { top: -60%; } 100% { top: 160%; } }
+@keyframes lineRight  { 0% { bottom: -60%; } 100% { bottom: 160%; } }
+
+/* The DOT — ambient copper glow orb emanating from top-right of card */
+.card-dot {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(196, 98, 45, 0.35) 0%,
+    rgba(196, 98, 45, 0.10) 50%,
+    transparent 70%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--duration-mid) ease;
+}
+
+.card-glow:hover .card-dot { opacity: 1; }
+
+/* Cursor-follow glow on card hover (set via JS inline style) */
+.card-cursor-glow {
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at center,
+    rgba(196, 98, 45, 0.12) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: opacity var(--duration-fast) ease;
+  opacity: 0;
+  z-index: 0;
+}
+
+.card-glow:hover .card-cursor-glow { opacity: 1; }
+
+/* ─────────────────────────────────────────
+   PATTERN 3 — ANIMATED FILTER PILL
+   Derived from: Animated Tabs Background [id:8315]
+   Spring-physics slide using CSS transition
+───────────────────────────────────────── */
+
+.filter-bar {
+  position: relative;
+  padding: 4px;
+  background: rgba(26, 35, 50, 0.8);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 100px;
+  backdrop-filter: blur(10px);
+  width: fit-content;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.filter-bar::-webkit-scrollbar { display: none; }
+
+/* Sliding background pill (injected by JS) */
+.filter-pill-bg {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  height: calc(100% - 8px);
+  background: linear-gradient(135deg, var(--brand-primary), rgba(196, 98, 45, 0.75));
+  border-radius: 100px;
+  pointer-events: none;
+  transition: left 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+              width 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 16px rgba(196, 98, 45, 0.35);
+  z-index: 0;
+}
+
+.filter-btn {
+  position: relative;
+  z-index: 1;
+  border-radius: 100px;
+  border: none;
+  background: transparent;
+  color: var(--base-300);
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: 0.4375rem 1.125rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color var(--duration-fast) ease;
+}
+
+.filter-btn.active { color: #fff; }
+.filter-btn:hover:not(.active) { color: var(--base-100); }
+
+/* ─────────────────────────────────────────
+   PATTERN 4 — GLASSMORPHISM NAV DRAWER
+   Derived from: Glassmorphism Navigation [id:15025]
+   Enhanced backdrop + staggered link entrance
+───────────────────────────────────────── */
+
+/* Override mobile-nav with premium glassmorphism */
+.mobile-nav {
+  background: rgba(11, 14, 20, 0.94);
+  backdrop-filter: blur(28px) saturate(180%);
+  -webkit-backdrop-filter: blur(28px) saturate(180%);
+  border-left: 1px solid rgba(196, 98, 45, 0.12);
+}
+
+/* Staggered entrance for nav links */
+.mobile-nav.open .mobile-nav-link {
+  animation: navLinkSlide 0.5s var(--ease-premium) both;
+}
+
+.mobile-nav.open .mobile-nav-link:nth-child(1) { animation-delay: 0.04s; }
+.mobile-nav.open .mobile-nav-link:nth-child(2) { animation-delay: 0.09s; }
+.mobile-nav.open .mobile-nav-link:nth-child(3) { animation-delay: 0.14s; }
+.mobile-nav.open .mobile-nav-link:nth-child(4) { animation-delay: 0.19s; }
+.mobile-nav.open .mobile-nav-link:nth-child(5) { animation-delay: 0.24s; }
+.mobile-nav.open .mobile-nav-actions { animation: navLinkSlide 0.5s var(--ease-premium) 0.30s both; }
+
+@keyframes navLinkSlide {
+  from { opacity: 0; transform: translateX(24px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Active nav link in drawer — copper dot indicator */
+.mobile-nav-link {
+  position: relative;
+  opacity: 0; /* starts hidden; JS add .open triggers animation */
+}
+
+.mobile-nav-link.active::before {
+  content: '';
+  position: absolute;
+  left: -1.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--brand-primary);
+  box-shadow: 0 0 10px rgba(196, 98, 45, 0.8);
+}
+
+/* Nav link hover underline upgrade — animated from center */
+.mobile-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: var(--brand-primary);
+  border-radius: 2px;
+  transition: width var(--duration-mid) var(--ease-premium);
+}
+
+.mobile-nav-link:hover::after,
+.mobile-nav-link.active::after { width: 40px; }
+
+/* ─────────────────────────────────────────
+   PATTERN 5 — PREMIUM STAT COUNTER CARD
+   Shimmer sweep + glowing value
+───────────────────────────────────────── */
+
+.stat-item {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer sweep animation on stat items */
+.stat-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 10%,
+    rgba(196, 98, 45, 0.04) 40%,
+    rgba(228, 160, 80, 0.08) 50%,
+    rgba(196, 98, 45, 0.04) 60%,
+    transparent 90%
+  );
+  animation: statShimmer 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.stat-item:nth-child(2)::before { animation-delay: 1s; }
+.stat-item:nth-child(3)::before { animation-delay: 2s; }
+.stat-item:nth-child(4)::before { animation-delay: 3s; }
+
+@keyframes statShimmer {
+  0%   { left: -100%; }
+  60%  { left: 150%; }
+  100% { left: 150%; }
+}
+
+/* ─────────────────────────────────────────
+   PATTERN 6 — HERO EYEBROW BADGE PULSE
+───────────────────────────────────────── */
+
+.hero-eyebrow {
+  position: relative;
+}
+
+/* Pulsing ring behind the eyebrow badge */
+.hero-eyebrow::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 100px;
+  border: 1px solid rgba(196, 98, 45, 0.3);
+  animation: eyebrowPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes eyebrowPulse {
+  0%, 100% { opacity: 0; transform: scale(1); }
+  50%       { opacity: 0.6; transform: scale(1.04); }
+}
+
+/* ─────────────────────────────────────────
+   PATTERN 7 — CTA BANNER AMBIENT PULSE
+───────────────────────────────────────── */
+
+.cta-banner::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 1px solid rgba(196, 98, 45, 0.15);
+  animation: ctaBorderPulse 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes ctaBorderPulse {
+  0%, 100% { border-color: rgba(196, 98, 45, 0.15); box-shadow: none; }
+  50%       { border-color: rgba(196, 98, 45, 0.35); box-shadow: 0 0 40px rgba(196, 98, 45, 0.08) inset; }
+}
+
+/* ─────────────────────────────────────────
+   PATTERN 8 — PROOF STRIP HOVER GLOW
+───────────────────────────────────────── */
+
+.proof-item {
+  transition: background var(--duration-fast) ease;
+}
+
+.proof-item:hover {
+  background: rgba(196, 98, 45, 0.06);
+}
+
+.proof-item:hover .proof-icon {
+  filter: drop-shadow(0 0 6px rgba(196, 98, 45, 0.7));
+}
+
+/* ─────────────────────────────────────────
+   PATTERN 9 — SCROLL PROGRESS BAR
+   Thin copper line at top of viewport
+───────────────────────────────────────── */
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--brand-primary), rgba(196, 98, 45, 0.5));
+  z-index: 9999;
+  width: 0%;
+  transition: width 0.1s linear;
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────
+   PATTERN 10 — ENHANCED BUTTON STATES
+   Ripple + shimmer from 21st.dev patterns
+───────────────────────────────────────── */
+
+.btn-primary {
+  background: linear-gradient(135deg, #C4622D 0%, #d97340 50%, #C4622D 100%);
+  background-size: 200% 100%;
+  background-position: 100% 0;
+  transition: all var(--duration-mid) var(--ease-premium),
+              background-position var(--duration-slow) ease;
+}
+
+.btn-primary:hover {
+  background-position: 0% 0;
+  box-shadow: 0 8px 32px rgba(196, 98, 45, 0.5),
+              0 0 0 1px rgba(196, 98, 45, 0.3);
+}
+
+/* Shimmer on primary button */
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    105deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.15) 50%,
+    transparent 80%
+  );
+  transform: skewX(-15deg);
+  transition: left 0.5s ease;
+  pointer-events: none;
+}
+
+.btn-primary:hover::after {
+  left: 140%;
+}
+
+/* ─────────────────────────────────────────
+   PATTERN 11 — SECTION DIVIDER LINES
+   Copper gradient horizontal rule
+───────────────────────────────────────── */
+
+.section-rule {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(196, 98, 45, 0.25) 20%,
+    rgba(196, 98, 45, 0.5) 50%,
+    rgba(196, 98, 45, 0.25) 80%,
+    transparent 100%
+  );
+  margin-block: 0;
+}
+
+/* ─────────────────────────────────────────
+   PATTERN 12 — TESTIMONIAL CARD GLOW
+───────────────────────────────────────── */
+
+.testimonial-card {
+  transition: all var(--duration-mid) var(--ease-premium);
+}
+
+.testimonial-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(196, 98, 45, 0.12),
+              0 1px 0 rgba(196, 98, 45, 0.2) inset;
+  border-color: rgba(196, 98, 45, 0.2);
+}
+
+/* ─────────────────────────────────────────
+   PATTERN 13 — LOGO HOVER EFFECT
+───────────────────────────────────────── */
+
+.site-logo {
+  transition: all var(--duration-fast) ease;
+}
+
+.site-logo:hover .logo-name {
+  color: var(--brand-primary);
+}
+
+.site-logo:hover img {
+  filter: drop-shadow(0 0 8px rgba(196, 98, 45, 0.6));
+}
+
+/* ─────────────────────────────────────────
+   PATTERN 14 — FOOTER SOCIAL LINK UPGRADE
+───────────────────────────────────────── */
+
+.social-link {
+  position: relative;
+  overflow: hidden;
+}
+
+.social-link::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(196, 98, 45, 0.3) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity var(--duration-fast) ease;
+}
+
+.social-link:hover::before { opacity: 1; }
+
+/* ─────────────────────────────────────────
+   PATTERN 15 — PROJECT CARD OVERLAY
+   Tint overlay with "View Project" reveal
+───────────────────────────────────────── */
+
+.project-card .project-img-wrap {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card .project-img-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(13, 17, 23, 0.7) 0%,
+    rgba(196, 98, 45, 0.15) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity var(--duration-mid) var(--ease-premium);
+}
+
+.project-card:hover .project-img-wrap::after { opacity: 1; }
+
+/* ─────────────────────────────────────────
+   KEYFRAME ADDITIONS
+───────────────────────────────────────── */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes borderGlow {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(196, 98, 45, 0.1); }
+  50%       { box-shadow: 0 0 0 1px rgba(196, 98, 45, 0.4), 0 0 20px rgba(196, 98, 45, 0.1); }
+}
+
+/* ─────────────────────────────────────────
+   REDUCED-MOTION ACCESSIBILITY
+───────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .hero-orb, .hero-orb-secondary, .hero-beam,
+  .card-glow::before, .card-line,
+  .stat-item::before, .hero-eyebrow::before,
+  .cta-banner::after, .scroll-progress {
+    animation: none !important;
+    transition: none !important;
+  }
+  .card-glow::before { display: none; }
 }

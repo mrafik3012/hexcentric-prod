@@ -186,6 +186,7 @@
   <main id="main-content">
 
     <!-- ═══ HERO ═══ -->
+    <!-- Ambient orb, blueprint grid, and scan beam injected by js/main.js (initHeroEnhancements) -->
     <section class="hero" aria-label="Hero — Hexcentric Roof Structures">
       <div class="container">
         <div class="hero-content">
@@ -195,8 +196,22 @@
           </div>
 
           <h1 class="fade-up delay-1" data-i18n="hero_h1">
-            Engineered Steel Structures Built for Tamil Nadu's <span class="accent">Most Demanding</span> Projects
+            Engineered Steel Structures Built for Tamil Nadu's
+            <span class="accent" style="
+              background: linear-gradient(135deg, #C4622D 0%, #e8924a 50%, #C4622D 100%);
+              background-size: 200% 100%;
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
+              background-clip: text;
+              animation: accentShimmer 4s ease-in-out infinite;
+            ">Most Demanding</span> Projects
           </h1>
+          <style>
+            @keyframes accentShimmer {
+              0%, 100% { background-position: 0% 50%; }
+              50%       { background-position: 100% 50%; }
+            }
+          </style>
 
           <p class="hero-subtitle fade-up delay-2" data-i18n="hero_sub">
             From large-span PEB factories and geometric space-frame roofing to mezzanine floors and prefab homes — Hexcentric designs, fabricates, and installs complete structural solutions from our SIDCO facility in Coimbatore.
@@ -233,6 +248,8 @@
         </div>
       </div>
     </section>
+
+    <div class="section-rule" aria-hidden="true"></div>
 
     <!-- ═══ VALUE PROPOSITION ═══ -->
     <section class="section bg-900" aria-labelledby="value-heading">
