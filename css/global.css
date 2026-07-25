@@ -96,6 +96,10 @@ body {
   overflow-x: clip;
 }
 
+main {
+  overflow-x: clip;
+}
+
 img {
   display: block;
   max-width: 100%;
