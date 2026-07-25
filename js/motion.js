@@ -6,7 +6,6 @@ import { animate, inView, stagger } from 'https://cdn.jsdelivr.net/npm/motion@la
 
 const SPRING_SNAPPY = { type: 'spring', stiffness: 380, damping: 32, mass: 0.85 };
 const SPRING_DRAWER = { type: 'spring', stiffness: 280, damping: 28, mass: 0.9 };
-const SPRING_PILL = { type: 'spring', stiffness: 420, damping: 34, mass: 0.75 };
 const EASE_OUT = [0.16, 1, 0.3, 1];
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -93,127 +92,6 @@ export function initScrollReveal() {
       { margin: '-8% 0px -5% 0px', amount: 0.15, once: true }
     );
   });
-}
-
-/* ─── Project tabs: spring pill + layout-style filter transitions ─── */
-export function initProjectFilters() {
-  const filterBars = document.querySelectorAll('.filter-bar');
-  const projectCards = document.querySelectorAll('.project-card[data-category]');
-  if (!filterBars.length || !projectCards.length) return;
-
-  filterBars.forEach((bar) => {
-    const pill = bar.querySelector('.filter-pill-bg');
-    const buttons = [...bar.querySelectorAll('.filter-btn')];
-
-    function movePill(btn, animatePill = true) {
-      if (!pill || !btn) return;
-      const isWrapped = bar.classList.contains('filter-bar--wrap') && window.innerWidth <= 900;
-      if (isWrapped) {
-        pill.style.opacity = '0';
-        return;
-      }
-      pill.style.opacity = '1';
-      const barRect = bar.getBoundingClientRect();
-      const btnRect = btn.getBoundingClientRect();
-      const props = {
-        left: btnRect.left - barRect.left - 4 + bar.scrollLeft,
-        width: btnRect.width,
-        top: btnRect.top - barRect.top,
-        height: btnRect.height,
-        opacity: 1,
-      };
-
-      if (reducedMotion || !animatePill) {
-        Object.assign(pill.style, {
-          left: `${props.left}px`,
-          width: `${props.width}px`,
-          top: `${props.top}px`,
-          height: `${props.height}px`,
-          opacity: '1',
-        });
-        return;
-      }
-
-      animate(pill, props, SPRING_PILL);
-    }
-
-    const initial = bar.querySelector('.filter-btn.active');
-    if (initial) {
-      requestAnimationFrame(() => movePill(initial, false));
-    }
-
-    buttons.forEach((btn) => {
-      btn.addEventListener('click', () => {
-        buttons.forEach((b) => b.classList.remove('active'));
-        btn.classList.add('active');
-        movePill(btn);
-        filterCards(btn.dataset.filter);
-      });
-    });
-
-    const resizeObs = new ResizeObserver(() => {
-      const active = bar.querySelector('.filter-btn.active');
-      if (active) movePill(active, false);
-    });
-    resizeObs.observe(bar);
-  });
-
-  function filterCards(filter) {
-    const cards = [...projectCards];
-    const toHide = cards.filter((c) => filter !== 'all' && c.dataset.category !== filter);
-    const toShow = cards.filter((c) => filter === 'all' || c.dataset.category === filter);
-    const grid = document.getElementById('project-grid');
-
-    if (reducedMotion) {
-      cards.forEach((card) => {
-        card.style.display = toShow.includes(card) ? '' : 'none';
-        card.style.opacity = '1';
-        card.style.transform = 'none';
-      });
-      return;
-    }
-
-    const firstRects = new Map(
-      cards.filter((c) => c.style.display !== 'none').map((c) => [c, c.getBoundingClientRect()])
-    );
-
-    const hideAnim = toHide.map((card) =>
-      animate(
-        card,
-        { opacity: 0, scale: 0.96, y: -8 },
-        { duration: 0.22, easing: EASE_OUT }
-      ).then(() => {
-        card.style.display = 'none';
-        card.dataset.motionHidden = 'true';
-      })
-    );
-
-    Promise.all(hideAnim).then(() => {
-      toShow.forEach((card) => {
-        if (card.style.display === 'none' || card.dataset.motionHidden === 'true') {
-          card.style.display = '';
-          delete card.dataset.motionHidden;
-        }
-      });
-
-      cards.filter((c) => c.style.display !== 'none').forEach((card) => {
-        const first = firstRects.get(card);
-        if (!first) return;
-        const last = card.getBoundingClientRect();
-        const dx = first.left - last.left;
-        const dy = first.top - last.top;
-        if (Math.abs(dx) > 1 || Math.abs(dy) > 1) {
-          animate(card, { x: [dx, 0], y: [dy, 0] }, { duration: 0.5, easing: EASE_OUT });
-        }
-      });
-
-      animate(
-        toShow.filter((c) => !firstRects.has(c)),
-        { opacity: [0, 1], scale: [0.96, 1], y: [16, 0] },
-        { delay: stagger(0.06), duration: 0.45, easing: EASE_OUT }
-      );
-    });
-  }
 }
 
 /* ─── Mobile drawer: spring slide-in + staggered links ─── */
@@ -331,21 +209,8 @@ export function getDrawerControls() {
   return drawerControls;
 }
 
-/* ─── Filter pill DOM injection (called before filter init) ─── */
-export function initFilterPillMarkup() {
-  document.querySelectorAll('.filter-bar').forEach((bar) => {
-    if (bar.querySelector('.filter-pill-bg')) return;
-    const pill = document.createElement('div');
-    pill.className = 'filter-pill-bg';
-    pill.setAttribute('aria-hidden', 'true');
-    bar.insertBefore(pill, bar.firstChild);
-  });
-}
-
 export function initMotion() {
-  initFilterPillMarkup();
   initHeroStagger();
   initScrollReveal();
-  initProjectFilters();
   initMobileDrawer();
 }
