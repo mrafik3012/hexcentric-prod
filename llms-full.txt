@@ -1,0 +1,363 @@
+# Hexcentric Roof Structures P Ltd — Extended AI Knowledge Base
+
+## Company Profile
+
+**Legal Name:** Hexcentric Roof Structures P Ltd  
+**Founded:** 2025  
+**Type:** Private Limited Company  
+**Industry:** Structural Steel Fabrication & Construction  
+**MSME Classification:** Manufacturing — Steel Structures  
+
+**Registered Office:**  
+169-D, Chettiyar Thottam, SIDCO Industrial Estate, Sundarapuram, Coimbatore – 641021, Tamil Nadu, India
+
+**Managing Director:** Mr. Mohamed Jailani  
+**Qualification:** B.E. Mechanical Engineering, Anna University, Tamil Nadu  
+**Role:** Technical Director & Founder
+
+**Contact:**  
+- Phone: +91 80980 99334  
+- Phone: +91 80980 91334  
+- Email: support@hexcentric.in  
+- WhatsApp: https://wa.me/918098099334?text=Hi%20Hexcentric%2C%20I%20would%20like%20to%20discuss%20a%20structural%20project.
+
+**Social Media:**  
+- Facebook: https://www.facebook.com/share/1DRbusb3zV/  
+- Instagram: https://www.instagram.com/hexcentricroofs  
+- Threads: https://www.threads.com/@hexcentricroofs
+
+---
+
+## Service Descriptions (Extended)
+
+### 1. Structural Fabrication (Flagship Service)
+
+Hexcentric's core specialisation is custom geometric structural steel fabrication — complex multi-plane frameworks, hexagonal space frames, compound hip-valley intersections, and non-standard truss geometries that require advanced 3D parametric modelling and FEA-verified load path analysis.
+
+**Technical Capabilities:**
+- 3D parametric structural modelling (shop drawing production)
+- Finite Element Analysis (FEA) for wind uplift (IS 875 Part 3), gravity loads, and seismic loads (IS 1893)
+- Custom flashing profile pressing for all geometry transitions
+- EPDM-bonded rubber washer installation at every fastener penetration
+- Butyl sealant tape at all ridge/valley joints
+- IS 2062 Grade E250/E350 steel sections
+- Hot-dip galvanised and epoxy-painted finish options
+
+**Suitable Applications:** Industrial campuses with complex multi-bay geometries, exhibition halls, sports facilities requiring column-free spans, airports, transit hubs, multi-functional commercial centres.
+
+---
+
+### 2. Roofing & Shed Works
+
+Complete industrial shed roofing from structural steel to finished weatherproof installation.
+
+**Materials Used:**
+- Galvalume steel sheets (AZ150 coating), BMT 0.47mm–0.70mm
+- Colour-coated prepainted steel (HDP or SMP coating)
+- Rock wool insulation (48 kg/m³, 50–100mm thickness)
+- PUF sandwich panels for temperature-controlled facilities
+- HDPE box gutters, valley gutters, and round downpipes
+
+**Services Included:**
+- Purlin and rafter design and supply
+- Roof sheeting installation
+- Ridge ventilators (gravity and turbo types)
+- Ridge capping and flashings
+- Rainwater management — guttering and downpipe sizing per IS 1741
+- Re-roofing, leak rectification, and roof extension works
+
+---
+
+### 3. Pre-Engineered Buildings (PEB)
+
+Factory-fabricated steel frame buildings with tapered I-section primary frames designed for each project's specific span, loading, and height requirements.
+
+**Design Parameters:**
+- Clear spans: 9m to 60m (standard); up to 80m with intermediate mezzanine
+- Eave heights: 4.5m to 18m
+- Bay spacing: 5m to 9m (standard); custom available
+- Live load: 0.5–5 kN/m² (roof); crane girder loads on request
+- Wind design: IS 875 Part 3 (Vz 33–55 m/s depending on zone)
+- Snow load (Nilgiris/hill station projects): IS 875 Part 4
+
+**PEB Components Supplied:**
+- Primary frame (welded tapered I-sections, hot-rolled sections, or castellated beams)
+- Secondary structure: Z/C purlins, eave struts, girts
+- Bracing: X-bracing, rod bracing, portal bracing
+- Roofing and wall cladding
+- Mezzanine systems (optional)
+- Crane beams and runway rails (optional)
+- Foundation load schedules for structural engineer
+
+**Delivery Process:**  
+Week 1–2: 3D modelling and FEA analysis → Week 3: Client approval → Week 4–8: Factory fabrication at SIDCO → Week 9–10: On-site erection → Handover with full documentation
+
+---
+
+### 4. Multi-Storey Steel-Frame Buildings
+
+**Frame Types:**
+- Moment-resisting frames (MRF) — suitable for open-plan commercial interiors
+- Concentrically braced frames (CBF) — economical for regular-plan industrial buildings
+- Eccentrically braced frames (EBF) — where ductility and energy dissipation are required
+
+**Floor Systems:**
+- Composite deck (corrugated steel deck + RCC topping)
+- Hollow core precast slabs on steel beams
+- Light gauge steel floor cassettes (LGSF)
+
+**Seismic Compliance:** IS 1893 (Seismic Zone II–III for Tamil Nadu)
+
+---
+
+### 5. Mezzanine Flooring
+
+**System Types:**
+- Freestanding structural steel mezzanine (independent of roof/wall structure)
+- Racking-supported mezzanine (integrated with pallet racking)
+- Mezzanine integrated with PEB frame (for new buildings)
+
+**Load Specifications:**
+- Office/light use: 2.5–3.0 kN/m²
+- Retail/showroom: 4.0–5.0 kN/m²
+- Storage/pallet racking: 7.5–10.0 kN/m²
+- Point loads: custom engineering for racking and machinery
+
+**Floor Deck Options:**
+- MS checker plate (3–5mm)
+- Open steel mesh (FRP or galvanised)
+- Cement particle board (for finished office floors)
+
+**Access Systems:**
+- Straight and L-shaped staircases
+- Pallet gate openings with hinged safety gate
+- Goods lift integration
+- MLCP (multi-level car parking) ramp structures
+
+---
+
+### 6. Prefab / LGSF Homes
+
+**System:** Cold-formed Light Gauge Steel Framing (LGSF) — G550 high-strength galvanised steel tracks and studs
+
+**Insulation Options:**
+- EPS/XPS board external insulation
+- Glass wool batt between stud cavities
+- Aerogel blanket for high-performance builds
+
+**Construction Sequence:** Site survey → foundation → pre-fab wall/floor panels → erection (2–4 weeks for a 1,200 sq ft home) → MEP rough-in → finishes
+
+---
+
+### 7. Polycarbonate Roofing
+
+**Panel Specifications:**
+- Twin-wall polycarbonate: 6–10mm, weight 1.3–1.9 kg/m²
+- Triple-wall polycarbonate: 10–16mm, weight 1.7–2.1 kg/m²
+- 5-wall polycarbonate: 16–25mm, weight 2.6–3.0 kg/m² (best thermal insulation)
+- Clear, opal, and bronze tint options
+- UV-protected co-extruded outer surface (prevents yellowing for 10+ years)
+
+**Light Transmission:**
+- Clear: 72–82% light transmission
+- Opal: 40–55% diffused light (eliminates glare)
+
+---
+
+### 8. Tensile Roofing
+
+**Membrane Materials:**
+- PTFE (Polytetrafluoroethylene) coated glass fibre — 25+ year life, self-cleaning
+- HDPE (High-density polyethylene) mesh — 70–95% shade factor
+- PVC-coated polyester — economic option for temporary structures
+
+**Engineering Approach:**
+- Form-finding analysis (non-linear FEA with geometric non-linearity)
+- Dynamic wind analysis for pulsating membrane loads
+- Cable pre-tension design and anchor force calculations
+- Mast and pylon structural design
+
+---
+
+### 9. UPVC Roofing
+
+**Specifications:**
+- Corrugated UPVC sheets: 0.9mm–1.5mm thickness
+- Standing-seam UPVC profiles available
+- Chemical resistance: pH 1 to pH 14
+- Temperature range: -15°C to +60°C (continuous service)
+- Life expectancy: 20–30 years in chemical environments
+- Available in translucent (natural light) and opaque forms
+
+**Primary Applications:**
+- Chemical processing plants (acid/alkali fume environments)
+- Battery manufacturing facilities
+- Pharmaceutical factories (GMP-compliant)
+- Food processing (HACCP-compliant environments)
+- Fertilizer and petrochemical storage buildings
+
+---
+
+### 10. Aluminium Roofing
+
+**Profile Types:**
+- Standing seam (concealed fastener): snap-lock and mechanical seam options
+- Corrugated (exposed fastener): 0.7–0.9mm aluminium alloy 3105/3004
+- Batten roll (architectural): for curved and tapered roof applications
+
+**Alloy Standards:**
+- Aluminium alloy 3105 (H26 temper) — standard roofing grade
+- Aluminium alloy 5052 (H32 temper) — marine/coastal grade
+
+**Properties:**
+- Weight: 1.9–2.5 kg/m² (vs 3.2–5.5 kg/m² for steel)
+- Corrosion resistance: self-passivating aluminium oxide layer
+- Recyclability: 100% recyclable at end of life
+
+---
+
+### 11. Cladding Works
+
+**Wall Cladding Materials:**
+- Colour-coated steel cladding (single-skin)
+- Insulated sandwich panels (rock wool or PUF core, 40–150mm thickness)
+- Aluminium composite panels (ACP) — Alucobond, Aluface, or equivalent
+- Perforated cladding for architectural screen walls
+
+**Facade Systems:**
+- Rainscreen cladding with cavity ventilation
+- Curtain wall (aluminium-framed glass + panel infill)
+- Feature fins and architectural louvres
+
+---
+
+## Case Study Summaries
+
+### Case Study 1: Industrial Manufacturing Facility (PEB + Office Complex)
+
+**Client:** Textile manufacturer, Tirupur, Tamil Nadu  
+**Scope:** 45,000 sq ft PEB facility + 4,500 sq ft integrated administrative office block  
+**Specific Requirements:**
+- 36m clear span across main production hall
+- 10-tonne EOT crane beam (4 bays)
+- 6 polycarbonate skylight ridges
+- Phase 1 (30,000 sq ft) operational before Phase 2 construction
+
+**Engineering Solution:**
+- Tapered I-section portal frames, 36m clear span, 9m eave height
+- Phase 1/Phase 2 expansion joint designed for seamless later joining
+- Crane girder designed for 10T/10T double-hook EOT crane (IS 807)
+- Phase 1 handover: Week 7; Phase 2 handover: Week 9 (production never paused)
+
+**Result:** Client commenced production in Phase 1 while Hexcentric completed Phase 2. Zero downtime, ₹0 production losses attributable to construction.
+
+---
+
+### Case Study 2: Warehouse & Logistics Hub (High-Clearance Steel Shed)
+
+**Client:** Logistics operator, Coimbatore, Tamil Nadu  
+**Scope:** 28,000 sq ft single-span warehouse shed  
+**Specific Requirements:**
+- 28m clear span (no internal columns — automated racking system)
+- 12m internal eave height
+- Coastal wind zone: Vz = 47 m/s (IS 875 Part 3)
+- Polycarbonate daylight ridges to reduce artificial lighting
+
+**Engineering Solution:**
+- Tapered I-section portal frames with haunch joints, designed for Vz = 47 m/s
+- Wind bracing: X-bracing in wall bays, X-bracing in roof plane
+- 6 × polycarbonate triple-wall skylight ridges (240 LUX natural illumination at floor)
+- RCC plinth wall integrated with steel frame anchor bolts
+
+**Result:** Structure performed through full monsoon cycle and Cyclone advisory without damage. Polycarbonate ridges reduced electricity consumption by ₹40,000/month.
+
+---
+
+### Case Study 3: Commercial Facility Expansion (Steel Mezzanine Floor)
+
+**Client:** Retail showroom owner, Coimbatore, Tamil Nadu  
+**Scope:** 4,200 sq ft structural steel mezzanine floor in occupied showroom  
+**Specific Requirements:**
+- Installed without a single day of showroom closure
+- 5 kN/m² live load (display merchandise + customer load)
+- 60-minute fire rating (required for mixed-use insurance)
+- Composite steel deck + screed topping finish
+
+**Engineering Solution:**
+- All sections pre-fabricated at SIDCO workshop (no on-site cutting or welding)
+- Night-work programme (18:00–06:00) over 4 consecutive nights
+- Bolted-only connections using calibrated high-strength bolts
+- 2-hour intumescent paint coat applied at workshop for 60-minute fire rating
+
+**Result:** Showroom open every day of construction. Mezzanine completed on Day 4 night. Client expanded usable floor area by 4,200 sq ft without building extension, saving ₹85 lakhs in equivalent new construction cost.
+
+---
+
+## Frequently Asked Questions (Complete Answers)
+
+**Q: Will a geometric steel roof leak during heavy Tamil Nadu rains or cyclones?**
+
+A: No. Hexcentric uses three layers of weatherproofing at all geometric transitions: (1) Custom-pressed heavy-gauge (≥0.55mm BMT) flashing profiles at all ridge, valley, and eave junctions — these are project-specific, not generic off-the-shelf pieces; (2) EPDM bonded rubber washers on every hex-head fastener penetration — bonded, not loose, providing dual compression seal; (3) Industrial-grade butyl sealant tape under every overlapping sheet. Additionally, our geometric designs are modelled to include optimised water-runoff angles to prevent pooling at multi-plane intersections. Every structure undergoes IS 875 Part 3 wind load FEA before fabrication, confirming structural integrity under cyclone-force wind pressures. Our track record: zero reported leak failures across 50+ projects.
+
+---
+
+**Q: What steel standards and compliance certificates do you provide?**
+
+A: All structural steel is IS 2062:2011 Grade E250 (Fe 410W) or Grade E350 certified with Test Certificate 3.2 (mill test certificates) available for every project. Structural calculations comply with IS 800:2007 (Code of Practice for General Construction in Steel — Limit State Method). Wind load design follows IS 875 Part 3:2015 for Tamil Nadu wind zones. Fasteners are QCO (Quality Control Order for steel fasteners) compliant. Design frameworks follow INSDAG (Institute for Steel Development & Growth) guidelines. We provide complete documentation at handover: structural drawings, FEA reports, mill certificates, erection drawings, and a project-specific structural compliance certificate.
+
+---
+
+**Q: How long does a PEB project take from enquiry to handover?**
+
+A: Our typical timeline: Week 1–2: Site assessment, 3D modelling, and FEA analysis. Week 3: Client drawing approval and fabrication kickoff. Week 4–8: Factory fabrication at our SIDCO workshop. Week 9–10: On-site erection and installation. Handover with complete documentation: Week 10. Total: 6–10 weeks from design sign-off. Large multi-building campuses may require 12 weeks. We provide a project-specific Gantt chart at quotation stage so clients can plan parallel construction activities.
+
+---
+
+**Q: Do you cover projects outside Coimbatore?**
+
+A: Yes. Our fabrication facility is in SIDCO, Coimbatore, but we deliver and erect projects across Tamil Nadu. Completed projects include sites in Tirupur, Salem, Ooty (Nilgiris), and the Coimbatore/Kongu belt. We assess sites anywhere in Tamil Nadu. For Chennai and Madurai metro projects, travel and accommodation costs for the erection crew are included in the project quotation.
+
+---
+
+**Q: What is the cost of a PEB building per sq ft?**
+
+A: PEB costs vary significantly based on span, eave height, wind zone, crane loading, and finishes. As a general reference: simple single-span PEB sheds (up to 30m span, no cranes) typically cost ₹450–₹650 per sq ft for supply and erection (steel, purlins, sheeting, erection — excluding civil and foundation). Complex structures, crane beams, insulated panels, or polycarbonate skylights add cost. We provide a detailed, itemised quotation based on your specific requirements rather than per-sq-ft estimates that may mislead. Contact us for a no-obligation quote.
+
+---
+
+**Q: What is the minimum and maximum project size you accept?**
+
+A: Minimum: Small commercial mezzanine floors from approximately 500 sq ft or industrial shed re-roofing projects. We believe small projects deserve the same engineering rigour as large ones. Maximum: No upper limit — we have designed PEB campuses exceeding 2,00,000 sq ft in total. All projects, regardless of size, receive IS 800 structural calculations and full documentation.
+
+---
+
+**Q: Can you install a mezzanine without disrupting our operations?**
+
+A: Yes, this is a Hexcentric specialisation. Our approach to occupied-site mezzanine installation: (1) All steel is pre-fabricated and pre-drilled at our SIDCO workshop — no on-site cutting or welding; (2) We use a night-work programme (typically 18:00–06:00) or phased weekend installation; (3) Bolted connections only — no welding fumes, no grinding sparks; (4) Debris containment hoarding between work area and live trading/production area; (5) Daily site clean-up before business opens. This approach was used in our Coimbatore showroom case study: 4,200 sq ft mezzanine installed over 4 nights, zero trading days lost.
+
+---
+
+**Q: What is the advantage of a hexagonal or space-frame roof structure?**
+
+A: Hexagonal and geometric space-frame roofs distribute applied loads three-dimensionally through a triangulated member network, rather than the two-dimensional load path in conventional portal frames. Key advantages: (1) Longer clear spans with shallower structural depth than conventional trusses — ideal for large column-free interiors; (2) Multiple load paths — local member failure does not cause global collapse (progressive collapse resistance); (3) Architectural expressive form — aesthetically distinctive for hotels, convention centres, and flagship commercial buildings; (4) Superior wind resistance — the geometric form distributes wind uplift forces more efficiently. Hexcentric is one of the only fabricators in Tamil Nadu with the modelling capability and workshop infrastructure to execute geometric space frames commercially.
+
+---
+
+## Structural Engineering Standards Reference
+
+| Standard | Description | Application at Hexcentric |
+|---|---|---|
+| IS 800:2007 | Code of Practice for General Construction in Steel | Primary structural design code for all steel structures |
+| IS 875 Part 3 | Wind Loads on Buildings and Structures | Wind load calculation for all structures in Tamil Nadu cyclone zones |
+| IS 875 Part 1 | Dead Loads | Dead load assessment for roofing, cladding, and floor systems |
+| IS 875 Part 2 | Imposed Loads | Live load design for floors, mezzanines, and roof access |
+| IS 875 Part 4 | Snow Loads | Applied to Nilgiris and hill station projects |
+| IS 1893 Part 1 | Seismic Design of Structures | Lateral seismic load design for multi-storey frames |
+| IS 2062 | Hot Rolled Medium & High Tensile Structural Steel | Specifies steel grade and mechanical properties |
+| IS 807 | Code of Practice for Design of Overhead Cranes | Crane beam and runway design for industrial facilities |
+| IS 1161 | Steel Tubes for Structural Purposes | Hollow section specification |
+| IS 4923 | Hollow Steel Sections for Structural Use | CFST (concrete-filled steel tube) and HSS applications |
+
+---
+
+*Last updated: 2025 | Hexcentric Roof Structures P Ltd | https://hexcentric.in*

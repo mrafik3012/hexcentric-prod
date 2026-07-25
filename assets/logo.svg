@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 44 44" fill="none" role="img" aria-label="Hexcentric Roof Structures logo">
+  <!-- Hexagon background -->
+  <polygon points="22,2 40,12 40,32 22,42 4,32 4,12" fill="#C4622D" opacity="0.12"/>
+  <polygon points="22,2 40,12 40,32 22,42 4,32 4,12" fill="none" stroke="#C4622D" stroke-width="1.5"/>
+  <!-- HC Monogram -->
+  <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle"
+        font-family="Outfit, system-ui, sans-serif"
+        font-size="16" font-weight="800" fill="#C4622D" letter-spacing="-1">HC</text>
+</svg>
