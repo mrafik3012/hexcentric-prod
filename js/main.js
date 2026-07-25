@@ -91,16 +91,21 @@ import { initMotion, getDrawerControls } from './motion.js';
     counters.forEach(c => cObserver.observe(c));
   }
 
-  /* ─── Scroll Progress Bar ─── */
+  /* ─── Scroll Progress Bar (rAF-throttled) ─── */
   const progressBar = document.createElement('div');
   progressBar.className = 'scroll-progress';
   document.body.prepend(progressBar);
 
+  let scrollTicking = false;
   window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    progressBar.style.width = progress + '%';
+    if (scrollTicking) return;
+    scrollTicking = true;
+    requestAnimationFrame(() => {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+      progressBar.style.width = progress + '%';
+      scrollTicking = false;
+    });
   }, { passive: true });
 
   /* ─── Cursor-Follow Glow on Cards ─── */

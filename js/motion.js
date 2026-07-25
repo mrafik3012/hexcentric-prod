@@ -36,8 +36,8 @@ export function initHeroStagger() {
 
   animate(
     targets,
-    { opacity: [0, 1], y: [36, 0], filter: ['blur(6px)', 'blur(0px)'] },
-    { duration: 0.85, delay: stagger(0.12, { startDelay: 0.15 }), easing: EASE_OUT }
+    { opacity: [0, 1], y: [28, 0] },
+    { duration: 0.75, delay: stagger(0.1, { startDelay: 0.12 }), easing: EASE_OUT }
   );
 }
 
@@ -58,8 +58,12 @@ export function initScrollReveal() {
     '.section-header--center',
   ].join(', ');
 
+  const seen = new Set();
   const elements = [...document.querySelectorAll(selectors)].filter((el) => {
-    return !el.closest('.hero, .page-hero');
+    if (seen.has(el)) return false;
+    if (el.closest('.hero, .page-hero')) return false;
+    seen.add(el);
+    return true;
   });
 
   if (!elements.length) return;
@@ -79,14 +83,14 @@ export function initScrollReveal() {
         animate(
           el,
           el.classList.contains('scale-in')
-            ? { opacity: [0, 1], scale: [0.94, 1] }
-            : { opacity: [0, 1], y: [32, 0] },
-          { duration: 0.7, easing: EASE_OUT }
+            ? { opacity: [0, 1], scale: [0.96, 1] }
+            : { opacity: [0, 1], y: [24, 0] },
+          { duration: 0.55, easing: EASE_OUT }
         );
         el.classList.remove('motion-pending');
         el.classList.add('motion-revealed');
       },
-      { margin: '-10% 0px -8% 0px', amount: 0.2 }
+      { margin: '-8% 0px -5% 0px', amount: 0.15, once: true }
     );
   });
 }
@@ -103,6 +107,12 @@ export function initProjectFilters() {
 
     function movePill(btn, animatePill = true) {
       if (!pill || !btn) return;
+      const isWrapped = bar.classList.contains('filter-bar--wrap') && window.innerWidth <= 640;
+      if (isWrapped) {
+        pill.style.opacity = '0';
+        return;
+      }
+      pill.style.opacity = '1';
       const barRect = bar.getBoundingClientRect();
       const btnRect = btn.getBoundingClientRect();
       const props = {

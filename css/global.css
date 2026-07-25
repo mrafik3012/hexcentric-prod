@@ -83,6 +83,7 @@ html {
   scroll-behavior: smooth;
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
 }
 
 body {
@@ -92,7 +93,7 @@ body {
   font-size: 1rem;
   line-height: 1.7;
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 img {
@@ -169,6 +170,7 @@ p { margin-bottom: 0; }
   max-width: 1280px;
   margin-inline: auto;
   padding-inline: 1.5rem;
+  min-width: 0;
 }
 
 .section {
@@ -1091,12 +1093,20 @@ textarea.form-control {
 }
 
 /* Filter buttons */
+.filter-scroll {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 3rem;
+  min-width: 0;
+}
+
 .filter-bar {
   display: flex;
   align-items: center;
   gap: 0.5rem;
   flex-wrap: wrap;
-  margin-bottom: 3rem;
+  margin-bottom: 0;
+  max-width: 100%;
 }
 
 .filter-btn {
@@ -1451,7 +1461,19 @@ textarea.form-control {
 }
 
 .motion-pending {
-  will-change: transform, opacity;
+  contain: layout style paint;
+}
+
+.form-control,
+.contact-card,
+.contact-layout > *,
+.leadership-grid > * {
+  min-width: 0;
+}
+
+#enquiry-form {
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* Legacy delay classes kept for markup compatibility; Motion handles timing */
@@ -1470,6 +1492,28 @@ textarea.form-control {
   grid-template-columns: 1fr 1fr;
   gap: 5rem;
   align-items: center;
+}
+
+.leadership-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 300px) minmax(0, 1fr);
+  gap: 4rem;
+  align-items: start;
+}
+
+.contact-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.8fr);
+  gap: 3.5rem;
+  align-items: start;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+  gap: 1.75rem;
+  position: relative;
+  min-width: 0;
 }
 
 .about-img-wrap {
@@ -1721,10 +1765,13 @@ textarea.form-control {
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
   .authority-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   .about-intro-grid { grid-template-columns: 1fr; }
+  .leadership-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .contact-layout { grid-template-columns: 1fr; gap: 2.5rem; }
   .service-section-grid { grid-template-columns: 1fr; }
   .service-section-grid.reverse { direction: ltr; }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .compliance-grid { grid-template-columns: repeat(2, 1fr); }
+  .filter-bar { border-radius: 12px; }
 }
 
 @media (max-width: 640px) {
@@ -1733,7 +1780,7 @@ textarea.form-control {
   .section--lg { padding-block: 4.5rem; }
   .hero { padding-top: 70px; }
   .hero h1 { font-size: 2.125rem; }
-  .proof-strip { flex-direction: column; }
+  .proof-strip { flex-direction: column; width: 100%; max-width: 100%; }
   .proof-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); width: 100%; }
   .proof-item:last-child { border-bottom: none; }
   .form-grid { grid-template-columns: 1fr; }
@@ -1745,6 +1792,14 @@ textarea.form-control {
   .hero-actions { flex-direction: column; align-items: stretch; }
   .hero-actions .btn { text-align: center; }
   .project-meta { flex-wrap: wrap; gap: 1rem; }
+  .filter-bar--wrap .filter-btn { flex: 1 1 auto; text-align: center; min-width: calc(50% - 0.5rem); }
+  .filter-bar--wrap .filter-pill-bg { display: none; }
+  .filter-bar--wrap .filter-btn.active {
+    background: linear-gradient(135deg, var(--brand-primary), rgba(196, 98, 45, 0.75));
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(196, 98, 45, 0.35);
+  }
+  #enquiry-form { padding: 1.25rem; }
 }
 
 /* ─────────────────────────────────────────
@@ -2026,13 +2081,15 @@ textarea.form-control {
   border: 1px solid rgba(255,255,255,0.07);
   border-radius: 100px;
   backdrop-filter: blur(10px);
-  width: fit-content;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  scrollbar-width: none;
+  max-width: 100%;
+  flex-wrap: wrap;
+  overflow: visible;
 }
 
-.filter-bar::-webkit-scrollbar { display: none; }
+.filter-bar--wrap {
+  border-radius: 12px;
+  width: 100%;
+}
 
 /* Sliding background pill — position driven by Motion spring (js/motion.js) */
 .filter-pill-bg {
@@ -2045,7 +2102,7 @@ textarea.form-control {
   pointer-events: none;
   box-shadow: 0 4px 16px rgba(196, 98, 45, 0.35);
   z-index: 0;
-  will-change: left, width, top, height;
+  will-change: auto;
 }
 
 .filter-btn {
@@ -2231,8 +2288,8 @@ textarea.form-control {
   background: linear-gradient(90deg, var(--brand-primary), rgba(196, 98, 45, 0.5));
   z-index: 9999;
   width: 0%;
-  transition: width 0.1s linear;
   pointer-events: none;
+  transform: translateZ(0);
 }
 
 /* ─────────────────────────────────────────
@@ -2376,10 +2433,6 @@ textarea.form-control {
 /* ─────────────────────────────────────────
    KEYFRAME ADDITIONS
 ───────────────────────────────────────── */
-
-.project-grid {
-  position: relative;
-}
 
 @keyframes borderGlow {
   0%, 100% { box-shadow: 0 0 0 1px rgba(196, 98, 45, 0.1); }
