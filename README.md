@@ -19,8 +19,7 @@ hexcentric-website/
 │   └── global.css              Design system, CSS vars, all component styles
 ├── js/
 │   ├── main.js                 Navigation, scroll animations, glassmorphism
-│   ├── form.js                 Honeypot validation, form submission
-│   └── lang.js                 EN / Tamil bilingual toggle
+│   └── form.js                 Honeypot validation, form submission
 ├── assets/
 │   ├── logo.svg                Hexcentric HC monogram (placeholder — replace with actual)
 │   └── images/                 Put client-supplied images here
@@ -50,7 +49,7 @@ Ensure all files are in this folder. No build step is required — this is a pur
    - `css/` folder
    - `js/` folder
    - `assets/` folder
-   - `llms.txt`, `llms-full.txt`, `robots.txt`, `sitemap.xml`
+   - `llms.txt`, `llms-full.txt`, `robots.txt`, `sitemap.xml`, `.htaccess`
 4. Upload using **Upload Files** or drag-and-drop
 5. Maintain the same folder structure inside `public_html`
 
@@ -59,10 +58,10 @@ Visit `https://hexcentric.in` in a browser. The home page should display.
 
 Check these URLs work:
 - `https://hexcentric.in/`
-- `https://hexcentric.in/about.html`
-- `https://hexcentric.in/services.html`
-- `https://hexcentric.in/projects.html`
-- `https://hexcentric.in/contact.html`
+- `https://hexcentric.in/about`
+- `https://hexcentric.in/services`
+- `https://hexcentric.in/projects`
+- `https://hexcentric.in/contact`
 - `https://hexcentric.in/sitemap.xml`
 - `https://hexcentric.in/robots.txt`
 - `https://hexcentric.in/llms.txt`
