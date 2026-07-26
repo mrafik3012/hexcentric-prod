@@ -401,14 +401,23 @@ p { margin-bottom: 0; }
 
 .site-footer .site-logo img,
 .site-footer .site-logo svg {
-  width: 52px;
-  height: 52px;
-  padding: 0;
-  border-radius: 0;
-  background: none;
-  border: none;
+  width: 56px;
+  height: 56px;
+  padding: 5px;
+  border-radius: 10px;
+  background: rgba(243, 237, 230, 0.94);
+  border: 1px solid rgba(196, 98, 45, 0.15);
   box-shadow: none;
   filter: none;
+}
+
+.site-footer .logo-name {
+  color: var(--base-100);
+}
+
+.site-footer .logo-tagline {
+  color: var(--base-300);
+  font-size: 0.6rem;
 }
 
 .logo-text {
@@ -474,6 +483,10 @@ p { margin-bottom: 0; }
 
 .site-header:not(.scrolled) .mobile-menu-btn span {
   background: var(--base-900);
+}
+
+.site-header.scrolled .mobile-menu-btn span {
+  background: var(--base-100);
 }
 
 .primary-nav {
@@ -1866,11 +1879,33 @@ textarea.form-control {
 @media (max-width: 900px) {
   .primary-nav { display: none; }
   .header-actions .btn { display: none; }
-  .lang-toggle { display: none; }
+  .header-actions .lang-toggle { display: none; }
   .mobile-menu-btn { display: flex; }
-  .mobile-nav { display: flex; }
+  .mobile-nav { display: flex; padding-top: 120px; }
 
-  .hero { min-height: 90vh; }
+  .site-header:not(.scrolled) .site-logo img,
+  .site-header:not(.scrolled) .site-logo svg {
+    width: 92px;
+    height: 92px;
+  }
+
+  .site-header.scrolled .site-logo img,
+  .site-header.scrolled .site-logo svg {
+    width: 50px;
+    height: 50px;
+  }
+
+  .site-logo { gap: 0.875rem; min-width: 0; }
+  .logo-text { min-width: 0; }
+
+  .site-header:not(.scrolled) .logo-name { font-size: 1.4375rem; }
+  .site-header:not(.scrolled) .logo-tagline {
+    font-size: 0.5625rem;
+    letter-spacing: 0.11em;
+  }
+
+  .hero { min-height: 90vh; padding-top: 128px; }
+  .page-hero { padding-top: 156px; }
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
   .authority-grid { grid-template-columns: 1fr; gap: 2.5rem; }
   .about-intro-grid { grid-template-columns: 1fr; }
@@ -1887,21 +1922,6 @@ textarea.form-control {
   .container { padding-inline: 1rem; }
   .section { padding-block: 3.5rem; }
   .section--lg { padding-block: 4.5rem; }
-  .hero { padding-top: 128px; }
-  .page-hero { padding-top: 156px; }
-  .site-header:not(.scrolled) .site-logo img,
-  .site-header:not(.scrolled) .site-logo svg {
-    width: 92px;
-    height: 92px;
-  }
-  .site-header.scrolled .site-logo img,
-  .site-header.scrolled .site-logo svg {
-    width: 50px;
-    height: 50px;
-  }
-  .site-logo { gap: 0.875rem; }
-  .site-header:not(.scrolled) .logo-name { font-size: 1.4375rem; }
-  .site-header:not(.scrolled) .logo-tagline { font-size: 0.5625rem; letter-spacing: 0.11em; }
   .hero h1 { font-size: 2.125rem; }
   .proof-strip { flex-direction: column; width: 100%; max-width: 100%; }
   .proof-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.08); width: 100%; }
