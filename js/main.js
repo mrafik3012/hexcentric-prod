@@ -20,13 +20,13 @@ import { initMotion, getDrawerControls } from './motion.js';
     onScroll();
   }
 
-  /* ─── Active nav link ─── */
-  const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+  /* ─── Active nav link (clean URLs) ─── */
+  const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
   document.querySelectorAll('.nav-link, .mobile-nav-link').forEach(link => {
     const href = link.getAttribute('href');
-    if (href && (href === currentPath || (currentPath === '' && href === 'index.html'))) {
-      link.classList.add('active');
-    }
+    if (!href || href.startsWith('#') || href.startsWith('http')) return;
+    const linkPath = href.split('#')[0].replace(/\/$/, '') || '/';
+    if (linkPath === currentPath) link.classList.add('active');
   });
 
   /* ─── Mobile nav close button (drawer open/close handled by motion.js) ─── */
