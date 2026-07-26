@@ -608,7 +608,7 @@ p { margin-bottom: 0; }
   background-color: var(--base-950);
   background-image:
     var(--hero-glow),
-    url("https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1800&auto=format&fit=crop&q=70");
+    url("../assets/images/hero/hero-bg.webp");
   background-size: cover;
   background-position: center 60%;
   background-repeat: no-repeat;
@@ -1455,10 +1455,42 @@ textarea.form-control {
 .page-hero {
   padding-top: 148px;
   padding-bottom: 5rem;
-  background: var(--base-950);
+  background-color: var(--base-950);
   background-image: var(--hero-glow);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   border-bottom: 1px solid rgba(255,255,255,0.05);
   overflow-x: clip;
+  position: relative;
+}
+
+.page-hero--about {
+  background-image:
+    linear-gradient(to bottom, rgba(13, 17, 23, 0.82), rgba(13, 17, 23, 0.94)),
+    var(--hero-glow),
+    url("../assets/images/og/og-about.webp");
+}
+
+.page-hero--services {
+  background-image:
+    linear-gradient(to bottom, rgba(13, 17, 23, 0.82), rgba(13, 17, 23, 0.94)),
+    var(--hero-glow),
+    url("../assets/images/og/og-services.webp");
+}
+
+.page-hero--projects {
+  background-image:
+    linear-gradient(to bottom, rgba(13, 17, 23, 0.82), rgba(13, 17, 23, 0.94)),
+    var(--hero-glow),
+    url("../assets/images/og/og-projects.webp");
+}
+
+.page-hero--contact {
+  background-image:
+    linear-gradient(to bottom, rgba(13, 17, 23, 0.82), rgba(13, 17, 23, 0.94)),
+    var(--hero-glow),
+    url("../assets/images/og/og-contact.webp");
 }
 
 .page-hero .filter-scroll {
