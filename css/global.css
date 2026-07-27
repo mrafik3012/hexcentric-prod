@@ -656,21 +656,9 @@ body:has(.hero) .site-header:not(.scrolled) .btn-primary.btn-sm {
   isolation: isolate;
 }
 
-.hero::after,
-.page-hero::after {
+.hero::before,
+.page-hero::before {
   content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  background: linear-gradient(to bottom,
-    rgba(13, 17, 23, 0.45) 0%,
-    rgba(13, 17, 23, 0.5) 40%,
-    rgba(13, 17, 23, 0.85) 100%
-  );
-  pointer-events: none;
-}
-
-.hero-bg {
   position: absolute;
   left: 0;
   right: 0;
@@ -683,7 +671,26 @@ body:has(.hero) .site-header:not(.scrolled) .btn-primary.btn-sm {
   z-index: 0;
   pointer-events: none;
   transform-origin: center center;
-  will-change: transform;
+  animation: heroKenBurnsIn 1.5s var(--ease-premium) forwards;
+}
+
+@keyframes heroKenBurnsIn {
+  from { transform: scale(1.06); }
+  to { transform: scale(1); }
+}
+
+.hero::after,
+.page-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(to bottom,
+    rgba(13, 17, 23, 0.45) 0%,
+    rgba(13, 17, 23, 0.5) 40%,
+    rgba(13, 17, 23, 0.85) 100%
+  );
+  pointer-events: none;
 }
 
 .hero .container,
@@ -2828,8 +2835,9 @@ textarea.form-control {
    REDUCED-MOTION ACCESSIBILITY
 ───────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
+  .hero::before,
+  .page-hero::before,
   .hero-orb, .hero-orb-secondary, .hero-beam,
-  .hero-bg,
   .card-glow::before, .card-line,
   .stat-item::before, .hero-eyebrow::before,
   .cta-banner::after, .scroll-progress {

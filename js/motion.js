@@ -58,27 +58,17 @@ async function loadMotionLibrary() {
   }
 }
 
-function initHeroMedia() {
-  const heroes = document.querySelectorAll('.hero, .page-hero');
+function initHeroParallax() {
+  if (reducedMotion || !scroll) return;
 
-  heroes.forEach((hero) => {
-    if (hero.querySelector('.hero-bg')) return;
-
-    const bg = document.createElement('div');
-    bg.className = 'hero-bg';
-    bg.setAttribute('aria-hidden', 'true');
-    hero.insertBefore(bg, hero.firstChild);
-
-    if (reducedMotion || !animate) return;
-
-    animate(bg, { scale: [1.06, 1] }, { duration: 1.5, easing: EASE_OUT });
-
-    if (scroll) {
-      scroll(
-        animate(bg, { y: ['-3%', '10%'], scale: [1, 1.035] }),
-        { target: hero, offset: ['start start', 'end start'] }
-      );
-    }
+  document.querySelectorAll('.hero, .page-hero').forEach((hero) => {
+    scroll(
+      (progress) => {
+        hero.style.setProperty('--hero-parallax-y', `${progress * 8}%`);
+        hero.style.setProperty('--hero-bg-scale', `${1 + progress * 0.03}`);
+      },
+      { target: hero, offset: ['start start', 'end start'] }
+    );
   });
 }
 
@@ -273,7 +263,7 @@ export async function initMotion() {
     revealAllContent();
   }
 
-  initHeroMedia();
+  initHeroParallax();
   initHeroStagger();
   initScrollReveal();
   initMobileDrawer();
