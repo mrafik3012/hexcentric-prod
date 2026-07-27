@@ -475,6 +475,43 @@ p { margin-bottom: 0; }
   background: var(--base-100);
 }
 
+/* Inner pages with photo hero: dark header — avoids light bar over background image */
+body:has(.page-hero) .site-header:not(.scrolled) {
+  background: linear-gradient(
+    180deg,
+    rgba(13, 17, 23, 0.9) 0%,
+    rgba(13, 17, 23, 0.65) 55%,
+    rgba(13, 17, 23, 0) 100%
+  );
+  border-bottom: none;
+}
+
+body:has(.page-hero) .site-header:not(.scrolled) .logo-name {
+  color: var(--base-100);
+  font-weight: 700;
+}
+
+body:has(.page-hero) .site-header:not(.scrolled) .logo-tagline {
+  color: var(--base-300);
+}
+
+body:has(.page-hero) .site-header:not(.scrolled) .nav-link {
+  color: var(--base-300);
+}
+
+body:has(.page-hero) .site-header:not(.scrolled) .nav-link:hover,
+body:has(.page-hero) .site-header:not(.scrolled) .nav-link.active {
+  color: var(--base-100);
+}
+
+body:has(.page-hero) .site-header:not(.scrolled) .mobile-menu-btn span {
+  background: var(--base-100);
+}
+
+body:has(.page-hero) .site-header:not(.scrolled) .btn-primary.btn-sm {
+  box-shadow: 0 2px 12px rgba(196, 98, 45, 0.35);
+}
+
 .primary-nav {
   display: flex;
   align-items: center;
@@ -1456,40 +1493,34 @@ textarea.form-control {
   padding-top: 148px;
   padding-bottom: 5rem;
   background-color: var(--base-950);
-  background-image: var(--hero-glow);
   background-size: cover;
-  background-position: center;
+  background-position: center 35%;
   background-repeat: no-repeat;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
   overflow-x: clip;
   position: relative;
 }
 
 .page-hero--about {
   background-image:
-    linear-gradient(to bottom, rgba(13, 17, 23, 0.82), rgba(13, 17, 23, 0.94)),
-    var(--hero-glow),
+    linear-gradient(to bottom, rgba(13, 17, 23, 0.45) 0%, rgba(13, 17, 23, 0.82) 55%, rgba(13, 17, 23, 0.92) 100%),
     url("/assets/images/og/og-about.webp");
 }
 
 .page-hero--services {
   background-image:
-    linear-gradient(to bottom, rgba(13, 17, 23, 0.82), rgba(13, 17, 23, 0.94)),
-    var(--hero-glow),
+    linear-gradient(to bottom, rgba(13, 17, 23, 0.45) 0%, rgba(13, 17, 23, 0.82) 55%, rgba(13, 17, 23, 0.92) 100%),
     url("/assets/images/og/og-services.webp");
 }
 
 .page-hero--projects {
   background-image:
-    linear-gradient(to bottom, rgba(13, 17, 23, 0.82), rgba(13, 17, 23, 0.94)),
-    var(--hero-glow),
+    linear-gradient(to bottom, rgba(13, 17, 23, 0.45) 0%, rgba(13, 17, 23, 0.82) 55%, rgba(13, 17, 23, 0.92) 100%),
     url("/assets/images/og/og-projects.webp");
 }
 
 .page-hero--contact {
   background-image:
-    linear-gradient(to bottom, rgba(13, 17, 23, 0.82), rgba(13, 17, 23, 0.94)),
-    var(--hero-glow),
+    linear-gradient(to bottom, rgba(13, 17, 23, 0.45) 0%, rgba(13, 17, 23, 0.82) 55%, rgba(13, 17, 23, 0.92) 100%),
     url("/assets/images/og/og-contact.webp");
 }
 
