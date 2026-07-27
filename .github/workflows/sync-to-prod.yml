@@ -27,6 +27,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          persist-credentials: false
 
       - name: Validate token and push to hexcentric-prod
         env:
@@ -66,7 +67,11 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+          # Prevent checkout's GITHUB_TOKEN from overriding the PAT on push
+          git config --global credential.helper ""
+          git config --global --unset-all http.https://github.com/.extraheader 2>/dev/null || true
+
           echo "Pushing main → hexcentric-prod..."
-          git push "https://x-access-token:${PROD_TOKEN}@github.com/mrafik3012/hexcentric-prod.git" HEAD:main --force
+          git -c credential.helper= push "https://x-access-token:${PROD_TOKEN}@github.com/mrafik3012/hexcentric-prod.git" HEAD:main --force
 
           echo "✓ Synced to https://github.com/mrafik3012/hexcentric-prod"
