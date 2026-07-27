@@ -110,9 +110,9 @@
     <priority>0.9</priority>
   </url>
 
-  <!-- Blog (WordPress subdomain) -->
+  <!-- Blog (WordPress subdirectory) -->
   <url>
-    <loc>https://blog.hexcentric.in/</loc>
+    <loc>https://hexcentric.in/blog/</loc>
     <lastmod>2026-07-27</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>

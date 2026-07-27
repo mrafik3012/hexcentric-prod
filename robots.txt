@@ -6,7 +6,6 @@ Allow: /
 
 # Sitemap
 Sitemap: https://hexcentric.in/sitemap.xml
-Sitemap: https://blog.hexcentric.in/sitemap_index.xml
 
 # Allow major AI/LLM crawlers explicitly
 User-agent: GPTBot

@@ -90,7 +90,7 @@ git push origin main
 - [ ] Replace placeholder Unsplash images with actual project photos (images tagged `data-replace="true"`)
 - [ ] Replace `assets/logo.svg` with the official Hexcentric SVG or PNG logo
 - [ ] Configure dual-email form in `js/form.js` (Make.com webhook or EmailJS)
-- [ ] Set up WordPress blog at `blog.hexcentric.in` for 100+ posts/month
+- [ ] Install WordPress blog at `hexcentric.in/blog/` for 100+ posts/month
 - [ ] Submit sitemap to Google Search Console: `https://hexcentric.in/sitemap.xml`
 - [ ] Verify JSON-LD schema at [schema.org validator](https://validator.schema.org/)
 - [ ] Test mobile navigation drawer on real device
@@ -149,37 +149,64 @@ If neither webhook nor EmailJS is configured, the form simulates success (1.2s d
 
 The blog exists to drive **organic search rankings (SEO)**, appear in **AI answer engines (AEO)** — ChatGPT, Perplexity, Google AI Overviews — and earn **citations in generative AI responses (GEO)**.
 
-The main static site cannot publish at this volume. Use **WordPress on `blog.hexcentric.in`**.
+The main static site cannot publish at this volume. Use **WordPress in a `/blog/` subdirectory** on the same domain.
 
 | Item | Detail |
 |------|--------|
-| URL | `https://blog.hexcentric.in` |
-| Platform | WordPress (Hostinger one-click install) |
-| Nav link | Already on all pages → Blog |
-| AI context | `llms.txt` and `llms-full.txt` updated with blog strategy |
+| URL | `https://hexcentric.in/blog/` |
+| Platform | WordPress installed in `public_html/blog/` |
+| Difficulty | **Easy** — standard Hostinger setup, ~30 minutes |
+| SEO benefit | All link equity stays on `hexcentric.in` (better than a subdomain) |
+| Nav link | Already on all pages → `/blog` |
 
-### Why WordPress for SEO/AEO/GEO
+### Why `/blog/` on the same domain (not a subdomain)
 
-- **Rank Math or Yoast SEO** — meta titles, schema, sitemaps, internal link suggestions
-- **Article + FAQ schema** — critical for AI answer extraction
-- **XML sitemap** — auto-submitted to Google Search Console
-- **Author pages** — E-E-A-T signals (MD bio, credentials)
-- **RSS feed** — `/feed/` for crawler discovery
+| Same domain `/blog/` | Subdomain `blog.hexcentric.in` |
+|----------------------|-------------------------------|
+| Stronger domain authority consolidation | Splits authority across two hosts |
+| Single `robots.txt` and brand presence | Needs separate crawler config |
+| Simpler for users and internal linking | Feels like a separate site |
+| **Recommended for SEO/AEO/GEO** | Works, but second choice |
 
-### Hostinger Setup
+### Hostinger Setup (Subdirectory)
 
-1. hPanel → **Websites** → **Add Website** → **WordPress** → subdomain `blog.hexcentric.in`
-2. Enable SSL (Let's Encrypt)
-3. Install plugins:
-   - **Rank Math SEO** (or Yoast) — schema, sitemaps, meta
-   - **WP Super Cache** — page speed (Core Web Vitals)
-   - **Wordfence** — security
-   - **Easy Table of Contents** — improves AI parsing of long posts
-4. Upload `assets/blog-robots.txt` to blog root as `robots.txt` (allows AI crawlers)
-5. Submit both sitemaps in Google Search Console:
-   - `https://hexcentric.in/sitemap.xml`
-   - `https://blog.hexcentric.in/sitemap_index.xml`
-6. Match brand: `#C4622D` copper, `#0D1117` dark background
+1. In hPanel → **File Manager** → `public_html/`
+2. Create folder `blog/`
+3. Install WordPress into `public_html/blog/`:
+   - **Option A:** hPanel → **WordPress** → install to subdirectory `/blog`
+   - **Option B:** Download WordPress from wordpress.org, upload to `blog/`, run installer at `hexcentric.in/blog/wp-admin/install.php`
+4. During install, set **Site URL** and **WordPress URL** to `https://hexcentric.in/blog`
+5. Enable SSL (already on main domain — no extra step)
+6. Install plugins: **Rank Math SEO**, **WP Super Cache**, **Wordfence**
+7. Match brand colours: `#C4622D` copper, `#0D1117` dark background
+8. Submit sitemaps in Google Search Console:
+   - `https://hexcentric.in/sitemap.xml` (main site)
+   - `https://hexcentric.in/blog/sitemap_index.xml` (WordPress auto-generates this)
+
+### How the two systems coexist
+
+```
+public_html/
+├── index.html          ← static home (existing)
+├── about.html          ← static pages (existing)
+├── services.html
+├── projects.html
+├── contact.html
+├── css/  js/  assets/  ← static assets (existing)
+├── .htaccess           ← updated to skip /blog/ rewrites
+└── blog/               ← WordPress (new)
+    ├── wp-admin/
+    ├── wp-content/
+    ├── wp-includes/
+    └── .htaccess       ← WordPress handles its own URLs
+```
+
+The root `.htaccess` already excludes `/blog/` from static-site rewrite rules so WordPress routing is not affected.
+
+### WordPress permalink setting
+
+In WP Admin → **Settings → Permalinks**, choose **Post name** (`/blog/%postname%/`). Posts will appear as:
+`https://hexcentric.in/blog/peb-cost-tamil-nadu-2026/`
 
 ### Content Strategy (100+ Posts/Month)
 
