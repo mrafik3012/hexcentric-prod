@@ -360,4 +360,46 @@ A: Hexagonal and geometric space-frame roofs distribute applied loads three-dime
 
 ---
 
-*Last updated: 2025 | Hexcentric Roof Structures P Ltd | https://hexcentric.in*
+## Blog — SEO, AEO & GEO Knowledge Strategy
+
+**Blog URL:** https://hexcentric.in/blog/  
+**Purpose:** Drive organic search rankings (SEO), appear in AI-powered answer engines (AEO), and earn citations in generative AI responses (GEO).
+
+### Content Architecture (Topic Clusters)
+
+Each blog cluster should link to a main-site service page:
+
+| Cluster Topic | Target Service Page | Example Queries |
+|---|---|---|
+| PEB buildings | /services#peb-buildings | "PEB cost per sq ft Tamil Nadu", "pre-engineered building timeline" |
+| Space frames & geometric roofs | /services#structural-fabrication | "space frame roofing India", "hexagonal roof structure" |
+| Industrial roofing | /services#roofing-shed-works | "industrial shed roofing Coimbatore", "colour coated roofing" |
+| Mezzanine floors | /services#mezzanine-flooring | "mezzanine floor cost India", "warehouse mezzanine without shutdown" |
+| Prefab homes | /services#prefab-homes | "prefab steel home Tamil Nadu", "LGSF construction" |
+| Wind & cyclone design | /services (general) | "IS 875 wind load calculation", "cyclone resistant steel structure" |
+| Local intent | /contact | "steel fabricator Coimbatore", "structural engineer SIDCO" |
+
+### AEO / GEO Writing Rules
+
+1. **Answer-first:** First 2–3 sentences must directly answer the title question (AI engines extract this)
+2. **Structured facts:** Use bullet lists, tables, and numbered steps — AI parsers prefer structured data
+3. **Cite standards:** Reference IS 800, IS 875, IS 2062 by name and number
+4. **Author attribution:** Every post signed by Mr. Mohamed Jailani, B.E. Mech., Anna University
+5. **Internal links:** Each post links to ≥1 service page, ≥1 project/case study, and /contact CTA
+6. **FAQ blocks:** Include 3–5 Q&A pairs per post with FAQ schema markup
+7. **No thin content:** Minimum 800 words; unique technical detail per post
+
+### Required Schema per Blog Post
+
+- `Article` or `BlogPosting` with author, datePublished, dateModified
+- `FAQPage` where Q&A sections exist
+- `Organization` publisher linking to https://hexcentric.in/#org
+- `BreadcrumbList` for navigation context
+
+### AI Crawler Access
+
+The blog lives under the same domain (`/blog/`) and is covered by the main `robots.txt` at hexcentric.in — no separate robots file needed. AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended) are already allowed site-wide.
+
+---
+
+*Last updated: 2026 | Hexcentric Roof Structures P Ltd | https://hexcentric.in*

@@ -69,4 +69,20 @@ Hexcentric specialises in complex geometric structural engineering — hexagonal
 - Services: https://hexcentric.in/services
 - Projects: https://hexcentric.in/projects
 - Contact: https://hexcentric.in/contact
+- Blog (SEO / AEO / GEO): https://hexcentric.in/blog/
 - Full AI Knowledge Base: https://hexcentric.in/llms-full.txt
+
+---
+
+## Blog — SEO, AEO & GEO Strategy
+
+The blog at **https://hexcentric.in/blog/** exists to rank in Google/Bing (SEO), appear in AI answer engines like ChatGPT, Perplexity, and Google AI Overviews (AEO), and be cited as an authoritative source in generative AI responses (GEO).
+
+**Content focus areas:**
+- Long-tail local queries: "PEB building cost Coimbatore", "IS 875 wind load Tamil Nadu", "space frame roofing India"
+- Service-specific guides linking back to hexcentric.in/services sections
+- FAQ-style posts with direct answers in the first paragraph
+- Case studies and technical explainers citing IS 800, IS 875, IS 2062 standards
+- Author: Mr. Mohamed Jailani, B.E. Mech., Anna University (E-E-A-T signal)
+
+**For AI crawlers:** Blog posts should use Article schema, FAQ schema where applicable, and link to this knowledge base (llms-full.txt) and main service pages.

@@ -89,8 +89,8 @@ git push origin main
 
 - [ ] Replace placeholder Unsplash images with actual project photos (images tagged `data-replace="true"`)
 - [ ] Replace `assets/logo.svg` with the official Hexcentric SVG or PNG logo
-- [ ] Update form webhook URL in `js/form.js` (line: `const WEBHOOK_URL = '...'`)
-  - Recommended: [Formspree](https://formspree.io), [n8n](https://n8n.io), [Make](https://make.com), or [EmailJS](https://emailjs.com)
+- [ ] Configure dual-email form in `js/form.js` (Make.com webhook or EmailJS)
+- [ ] Install WordPress blog at `hexcentric.in/blog/` for 100+ posts/month
 - [ ] Submit sitemap to Google Search Console: `https://hexcentric.in/sitemap.xml`
 - [ ] Verify JSON-LD schema at [schema.org validator](https://validator.schema.org/)
 - [ ] Test mobile navigation drawer on real device
@@ -100,11 +100,155 @@ git push origin main
 
 ---
 
-## Connecting the Contact Form
+## Connecting the Contact Form (Dual Email)
 
-The form currently runs in **demo mode** (simulated 1.2-second delay → success message). To connect to a real backend:
+On submit, the form sends **two emails**:
+1. **To support@hexcentric.com** — structured enquiry with all form fields
+2. **To the client** — branded thank-you confirmation
 
-### Option A: Formspree (Recommended for simplicity)
+Email is now a **required field** (needed for the client confirmation).
+
+### Option A: Make.com Webhook (Recommended)
+
+1. Create a free account at [make.com](https://www.make.com)
+2. Create a scenario: **Webhooks → Custom webhook** (trigger)
+3. Add two **Email** modules (or Gmail/SMTP):
+   - **Email 1 (admin):** To `{{admin_email}}`, Subject `{{admin_subject}}`, Body type HTML, Content `{{admin_html}}`
+   - **Email 2 (client):** To `{{client_email}}`, Subject `{{client_subject}}`, Body type HTML, Content `{{client_html}}`
+4. Copy the webhook URL and paste it in `js/form.js`:
+   ```js
+   const WEBHOOK_URL = 'https://hook.eu1.make.com/YOUR_WEBHOOK_ID';
+   ```
+5. Test on the live site (webhooks may not work on localhost)
+
+The webhook payload includes pre-built HTML in `admin_html` and `client_html`, plus raw fields in `fields`.
+
+### Option B: EmailJS
+
+1. Sign up at [emailjs.com](https://www.emailjs.com)
+2. Create an email service (Gmail, Outlook, or SMTP for support@hexcentric.com)
+3. Create **two templates** — one for admin, one for client — using variables like `{{message_html}}`, `{{name}}`, `{{email}}`
+4. Set the constants in `js/form.js`:
+   ```js
+   const EMAILJS = {
+     publicKey: 'your_public_key',
+     serviceId: 'your_service_id',
+     adminTemplateId: 'template_admin',
+     clientTemplateId: 'template_client',
+   };
+   ```
+5. In each EmailJS template, set the "To" field to `{{to_email}}`
+
+### Demo Mode
+
+If neither webhook nor EmailJS is configured, the form simulates success (1.2s delay) and logs the payload to the browser console for testing.
+
+---
+
+## Blog for SEO, AEO & GEO (100+ Posts/Month)
+
+The blog exists to drive **organic search rankings (SEO)**, appear in **AI answer engines (AEO)** — ChatGPT, Perplexity, Google AI Overviews — and earn **citations in generative AI responses (GEO)**.
+
+The main static site cannot publish at this volume. Use **WordPress in a `/blog/` subdirectory** on the same domain.
+
+| Item | Detail |
+|------|--------|
+| URL | `https://hexcentric.in/blog/` |
+| Platform | WordPress installed in `public_html/blog/` |
+| Difficulty | **Easy** — standard Hostinger setup, ~30 minutes |
+| SEO benefit | All link equity stays on `hexcentric.in` (better than a subdomain) |
+| Nav link | Already on all pages → `/blog` |
+
+### Why `/blog/` on the same domain (not a subdomain)
+
+| Same domain `/blog/` | Subdomain `blog.hexcentric.in` |
+|----------------------|-------------------------------|
+| Stronger domain authority consolidation | Splits authority across two hosts |
+| Single `robots.txt` and brand presence | Needs separate crawler config |
+| Simpler for users and internal linking | Feels like a separate site |
+| **Recommended for SEO/AEO/GEO** | Works, but second choice |
+
+### Hostinger Setup (Subdirectory)
+
+1. In hPanel → **File Manager** → `public_html/`
+2. Create folder `blog/`
+3. Install WordPress into `public_html/blog/`:
+   - **Option A:** hPanel → **WordPress** → install to subdirectory `/blog`
+   - **Option B:** Download WordPress from wordpress.org, upload to `blog/`, run installer at `hexcentric.in/blog/wp-admin/install.php`
+4. During install, set **Site URL** and **WordPress URL** to `https://hexcentric.in/blog`
+5. Enable SSL (already on main domain — no extra step)
+6. Install plugins: **Rank Math SEO**, **WP Super Cache**, **Wordfence**
+7. Match brand colours: `#C4622D` copper, `#0D1117` dark background
+8. Submit sitemaps in Google Search Console:
+   - `https://hexcentric.in/sitemap.xml` (main site)
+   - `https://hexcentric.in/blog/sitemap_index.xml` (WordPress auto-generates this)
+
+### How the two systems coexist
+
+```
+public_html/
+├── index.html          ← static home (existing)
+├── about.html          ← static pages (existing)
+├── services.html
+├── projects.html
+├── contact.html
+├── css/  js/  assets/  ← static assets (existing)
+├── .htaccess           ← updated to skip /blog/ rewrites
+└── blog/               ← WordPress (new)
+    ├── wp-admin/
+    ├── wp-content/
+    ├── wp-includes/
+    └── .htaccess       ← WordPress handles its own URLs
+```
+
+The root `.htaccess` already excludes `/blog/` from static-site rewrite rules so WordPress routing is not affected.
+
+### WordPress permalink setting
+
+In WP Admin → **Settings → Permalinks**, choose **Post name** (`/blog/%postname%/`). Posts will appear as:
+`https://hexcentric.in/blog/peb-cost-tamil-nadu-2026/`
+
+### Content Strategy (100+ Posts/Month)
+
+Volume only works with **quality and structure**. Each post should:
+
+| Rule | Why |
+|------|-----|
+| **Answer-first opening** (2–3 sentences) | AI engines extract the direct answer for AEO/GEO |
+| **800+ words, unique technical detail** | Avoids thin-content penalties |
+| **Topic clusters** linking to `/services#section` | Builds topical authority for SEO |
+| **Local keywords** (Coimbatore, Tamil Nadu, SIDCO) | Captures local search intent |
+| **Cite IS codes** (IS 800, IS 875, IS 2062) | Establishes expertise for AI citation |
+| **FAQ block** (3–5 Q&As) with FAQ schema | Powers featured snippets and AI answers |
+| **Author: Mr. Mohamed Jailani, B.E. Mech.** | E-E-A-T trust signal |
+| **Internal links** to services, projects, contact | Distributes link equity to main site |
+
+### Example Topic Clusters
+
+| Cluster | Links to | Example titles |
+|---------|----------|----------------|
+| PEB buildings | `/services#peb-buildings` | "PEB cost per sq ft in Tamil Nadu 2026" |
+| Space frames | `/services#structural-fabrication` | "Space frame vs portal frame: which is better?" |
+| Wind design | `/services` | "IS 875 Part 3 wind load for Coimbatore" |
+| Mezzanine | `/services#mezzanine-flooring` | "Install mezzanine without shutting factory" |
+| Local | `/contact` | "Best steel fabricator in SIDCO Coimbatore" |
+
+### Quality Warning
+
+100+ posts/month of thin or duplicate content will **hurt** SEO and reduce AI citation trust. Prioritise:
+- Unique technical depth per article
+- Varied formats (guides, comparisons, case studies, FAQs)
+- Editorial review before publish (avoid AI-generated spam patterns)
+
+See `llms-full.txt` → "Blog — SEO, AEO & GEO Knowledge Strategy" for the full content architecture.
+
+---
+
+## Connecting the Contact Form (Legacy — Single Email)
+
+The form previously ran in **demo mode** (simulated 1.2-second delay → success message). See **Connecting the Contact Form (Dual Email)** above for the current setup.
+
+### Option A: Formspree (Single email only)
 1. Sign up at [formspree.io](https://formspree.io) → Create a new form
 2. Copy your form endpoint (e.g. `https://formspree.io/f/abcdefgh`)
 3. Open `js/form.js` and replace:
