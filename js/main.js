@@ -56,12 +56,25 @@ import { initMotion, getDrawerControls } from './motion.js';
   });
 
   /* ─── FAQ accordion ─── */
-  document.querySelectorAll('.faq-question').forEach(btn => {
+  document.querySelectorAll('.faq-question').forEach((btn) => {
     btn.addEventListener('click', function () {
       const item = this.closest('.faq-item');
-      const isOpen = item.classList.contains('open');
-      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
-      if (!isOpen) item.classList.add('open');
+      const answer = item?.querySelector('.faq-answer');
+      const isOpen = item?.classList.contains('open');
+
+      document.querySelectorAll('.faq-item').forEach((faqItem) => {
+        faqItem.classList.remove('open');
+        const question = faqItem.querySelector('.faq-question');
+        const faqAnswer = faqItem.querySelector('.faq-answer');
+        if (question) question.setAttribute('aria-expanded', 'false');
+        if (faqAnswer) faqAnswer.hidden = true;
+      });
+
+      if (!isOpen && item && answer) {
+        item.classList.add('open');
+        this.setAttribute('aria-expanded', 'true');
+        answer.hidden = false;
+      }
     });
   });
 
