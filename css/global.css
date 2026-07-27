@@ -647,15 +647,14 @@ body:has(.hero) .site-header:not(.scrolled) .btn-primary.btn-sm {
 ───────────────────────────────────────── */
 .hero {
   position: relative;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
+  display: block;
   background-color: var(--base-950);
   background-image: url("/assets/images/hero/hero-bg.webp");
   background-size: cover;
-  background-position: center 60%;
+  background-position: center 35%;
   background-repeat: no-repeat;
-  padding-top: 118px;
+  padding-top: 148px;
+  padding-bottom: 5rem;
   overflow: hidden;
 }
 
@@ -719,28 +718,32 @@ body:has(.hero) .site-header:not(.scrolled) .btn-primary.btn-sm {
   align-items: center;
   gap: 1rem;
   flex-wrap: wrap;
-  margin-bottom: 3.5rem;
+  margin-bottom: 2rem;
 }
 
 /* Social proof strip */
 .proof-strip {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   gap: 0;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: var(--radius-md);
   background: rgba(26, 35, 50, 0.7);
   backdrop-filter: blur(8px);
   overflow: hidden;
-  width: fit-content;
+  width: 100%;
+  max-width: 100%;
 }
 
 .proof-item {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  padding: 0.75rem 1.25rem;
+  flex: 1 1 0;
+  min-width: 0;
+  padding: 0.625rem 0.75rem;
   border-right: 1px solid rgba(255,255,255,0.08);
 }
 
@@ -754,7 +757,7 @@ body:has(.hero) .site-header:not(.scrolled) .btn-primary.btn-sm {
 }
 
 .proof-text {
-  font-size: 0.875rem;
+  font-size: clamp(0.6875rem, 1.1vw, 0.8125rem);
   font-weight: 600;
   color: var(--base-100);
   white-space: nowrap;
@@ -1912,7 +1915,7 @@ textarea.form-control {
     letter-spacing: 0.11em;
   }
 
-  .hero { min-height: 90vh; padding-top: 128px; }
+  .hero { padding-top: 156px; }
   .page-hero { padding-top: 156px; }
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
   .authority-grid { grid-template-columns: 1fr; gap: 2.5rem; }

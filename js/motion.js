@@ -38,7 +38,7 @@ function revealInstant(elements) {
 
 function revealAllContent() {
   revealInstant(document.querySelectorAll(REVEAL_SELECTORS));
-  document.querySelectorAll('.hero-eyebrow, .hero h1, .page-hero h1, .hero-subtitle, .hero-actions, .proof-strip, .page-hero .text-overline, .page-hero p.fade-up').forEach((el) => {
+  document.querySelectorAll('.hero h1, .page-hero h1, .hero-subtitle, .hero-actions, .proof-strip, .page-hero .text-overline, .page-hero p.fade-up').forEach((el) => {
     el.style.opacity = '1';
     el.style.transform = 'none';
   });
@@ -62,7 +62,7 @@ function initHeroStagger() {
   if (!hero) return;
 
   const targets = hero.querySelectorAll(
-    '.hero-eyebrow, .hero h1, .page-hero h1, .hero-subtitle, .hero-actions, .proof-strip, .page-hero .text-overline, .page-hero p.fade-up'
+    '.hero h1, .page-hero h1, .hero-subtitle, .hero-actions, .proof-strip, .page-hero .text-overline, .page-hero p.fade-up'
   );
 
   if (!targets.length) return;
