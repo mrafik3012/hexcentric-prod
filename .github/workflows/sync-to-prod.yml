@@ -2,11 +2,8 @@
 #
 # Setup:
 #   1. Create empty repo: https://github.com/mrafik3012/hexcentric-prod
-#   2. Create a Personal Access Token:
-#      - Classic PAT: scope "repo" (recommended)
-#      - OR Fine-grained PAT: Contents Read+Write on hexcentric-roof AND hexcentric-prod
-#   3. Add secret on hexcentric-roof: PROD_REPO_TOKEN = your PAT
-#   4. Run this workflow manually
+#   2. Classic PAT with "repo" scope → secret PROD_REPO_TOKEN on hexcentric-roof
+#   3. Run workflow manually
 
 name: Sync to Production
 
@@ -23,13 +20,7 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          persist-credentials: false
-
-      - name: Validate token and push to hexcentric-prod
+      - name: Mirror main to hexcentric-prod
         env:
           PROD_TOKEN: ${{ secrets.PROD_REPO_TOKEN }}
         run: |
@@ -37,7 +28,6 @@ jobs:
 
           if [ -z "${PROD_TOKEN}" ]; then
             echo "::error::PROD_REPO_TOKEN secret is not set."
-            echo "Add it at: Settings → Secrets and variables → Actions"
             exit 1
           fi
 
@@ -48,30 +38,21 @@ jobs:
             https://api.github.com/repos/mrafik3012/hexcentric-prod)
 
           if [ "${HTTP_CODE}" != "200" ]; then
-            echo "::error::Token cannot read hexcentric-prod (HTTP ${HTTP_CODE})."
+            echo "::error::Token cannot access hexcentric-prod (HTTP ${HTTP_CODE})."
             cat /tmp/prod_check.json
-            echo ""
-            echo "Fix: Create a CLASSIC PAT with 'repo' scope at:"
-            echo "  https://github.com/settings/tokens"
-            echo "Or edit your fine-grained PAT to include hexcentric-prod with Contents: Read and write."
             exit 1
           fi
 
-          PUSH_PERM=$(python3 -c "import json; d=json.load(open('/tmp/prod_check.json')); print(d.get('permissions',{}).get('push', False))")
-          if [ "${PUSH_PERM}" != "True" ]; then
-            echo "::error::Token can see hexcentric-prod but does not have push permission."
-            echo "Use a classic PAT with 'repo' scope, or grant Contents: Read and write on hexcentric-prod."
-            exit 1
-          fi
+          AUTH="https://x-access-token:${PROD_TOKEN}@github.com"
 
+          echo "Cloning hexcentric-roof with PAT..."
+          git clone --branch main --single-branch "${AUTH}/mrafik3012/hexcentric-roof.git" /tmp/roof
+
+          cd /tmp/roof
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Prevent checkout's GITHUB_TOKEN from overriding the PAT on push
-          git config --global credential.helper ""
-          git config --global --unset-all http.https://github.com/.extraheader 2>/dev/null || true
-
           echo "Pushing main → hexcentric-prod..."
-          git -c credential.helper= push "https://x-access-token:${PROD_TOKEN}@github.com/mrafik3012/hexcentric-prod.git" HEAD:main --force
+          git push --force "${AUTH}/mrafik3012/hexcentric-prod.git" main:main
 
           echo "✓ Synced to https://github.com/mrafik3012/hexcentric-prod"
