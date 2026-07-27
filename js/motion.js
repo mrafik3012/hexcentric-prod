@@ -26,6 +26,7 @@ const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matc
 let animate = null;
 let inView = null;
 let stagger = null;
+let scroll = null;
 
 function revealInstant(elements) {
   elements.forEach((el) => {
@@ -50,11 +51,35 @@ function revealAllContent() {
 
 async function loadMotionLibrary() {
   try {
-    ({ animate, inView, stagger } = await import('https://cdn.jsdelivr.net/npm/motion@12.23.12/+esm'));
+    ({ animate, inView, stagger, scroll } = await import('https://cdn.jsdelivr.net/npm/motion@12.23.12/+esm'));
     return true;
   } catch {
     return false;
   }
+}
+
+function initHeroMedia() {
+  const heroes = document.querySelectorAll('.hero, .page-hero');
+
+  heroes.forEach((hero) => {
+    if (hero.querySelector('.hero-bg')) return;
+
+    const bg = document.createElement('div');
+    bg.className = 'hero-bg';
+    bg.setAttribute('aria-hidden', 'true');
+    hero.insertBefore(bg, hero.firstChild);
+
+    if (reducedMotion || !animate) return;
+
+    animate(bg, { scale: [1.06, 1] }, { duration: 1.5, easing: EASE_OUT });
+
+    if (scroll) {
+      scroll(
+        animate(bg, { y: ['-3%', '10%'], scale: [1, 1.035] }),
+        { target: hero, offset: ['start start', 'end start'] }
+      );
+    }
+  });
 }
 
 function initHeroStagger() {
@@ -248,6 +273,7 @@ export async function initMotion() {
     revealAllContent();
   }
 
+  initHeroMedia();
   initHeroStagger();
   initScrollReveal();
   initMobileDrawer();
