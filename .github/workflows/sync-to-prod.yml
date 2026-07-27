@@ -1,10 +1,12 @@
 # Sync main branch → mrafik3012/hexcentric-prod (production)
 #
-# Setup (one time):
-#   1. Create https://github.com/mrafik3012/hexcentric-prod (empty, no README)
-#   2. GitHub → hexcentric-roof → Settings → Secrets → Actions
-#   3. Add secret: PROD_REPO_TOKEN = your Personal Access Token (repo scope)
-#   4. Actions → Sync to Production → Run workflow
+# Setup:
+#   1. Create empty repo: https://github.com/mrafik3012/hexcentric-prod
+#   2. Create a Personal Access Token:
+#      - Classic PAT: scope "repo" (recommended)
+#      - OR Fine-grained PAT: Contents Read+Write on hexcentric-roof AND hexcentric-prod
+#   3. Add secret on hexcentric-roof: PROD_REPO_TOKEN = your PAT
+#   4. Run this workflow manually
 
 name: Sync to Production
 
@@ -13,6 +15,9 @@ on:
   push:
     branches:
       - main
+
+permissions:
+  contents: read
 
 jobs:
   sync:
@@ -23,17 +28,45 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Push to hexcentric-prod
+      - name: Validate token and push to hexcentric-prod
         env:
           PROD_TOKEN: ${{ secrets.PROD_REPO_TOKEN }}
         run: |
-          if [ -z "$PROD_TOKEN" ]; then
-            echo "::warning::PROD_REPO_TOKEN secret not set — skipping prod sync."
-            echo "Add a PAT with repo access to hexcentric-prod in repo Secrets → Actions."
-            exit 0
+          set -euo pipefail
+
+          if [ -z "${PROD_TOKEN}" ]; then
+            echo "::error::PROD_REPO_TOKEN secret is not set."
+            echo "Add it at: Settings → Secrets and variables → Actions"
+            exit 1
           fi
+
+          echo "Checking token access to hexcentric-prod..."
+          HTTP_CODE=$(curl -s -o /tmp/prod_check.json -w "%{http_code}" \
+            -H "Authorization: Bearer ${PROD_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/mrafik3012/hexcentric-prod)
+
+          if [ "${HTTP_CODE}" != "200" ]; then
+            echo "::error::Token cannot read hexcentric-prod (HTTP ${HTTP_CODE})."
+            cat /tmp/prod_check.json
+            echo ""
+            echo "Fix: Create a CLASSIC PAT with 'repo' scope at:"
+            echo "  https://github.com/settings/tokens"
+            echo "Or edit your fine-grained PAT to include hexcentric-prod with Contents: Read and write."
+            exit 1
+          fi
+
+          PUSH_PERM=$(python3 -c "import json; d=json.load(open('/tmp/prod_check.json')); print(d.get('permissions',{}).get('push', False))")
+          if [ "${PUSH_PERM}" != "True" ]; then
+            echo "::error::Token can see hexcentric-prod but does not have push permission."
+            echo "Use a classic PAT with 'repo' scope, or grant Contents: Read and write on hexcentric-prod."
+            exit 1
+          fi
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git remote add prod "https://x-access-token:${PROD_TOKEN}@github.com/mrafik3012/hexcentric-prod.git"
-          git push prod HEAD:main --force
+
+          echo "Pushing main → hexcentric-prod..."
+          git push "https://x-access-token:${PROD_TOKEN}@github.com/mrafik3012/hexcentric-prod.git" HEAD:main --force
+
           echo "✓ Synced to https://github.com/mrafik3012/hexcentric-prod"
