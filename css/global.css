@@ -645,14 +645,20 @@ body:has(.hero) .site-header:not(.scrolled) .btn-primary.btn-sm {
 /* ─────────────────────────────────────────
    HERO SECTION
 ───────────────────────────────────────── */
-.hero {
+.hero,
+.page-hero {
   position: relative;
-  display: block;
-  --hero-bg-image: url("/assets/images/hero/hero-bg.webp");
-  background-color: var(--base-950);
+  display: flex;
+  align-items: center;
+  min-height: clamp(580px, 82vh, 900px);
   padding-top: 148px;
   padding-bottom: 5rem;
+  background-color: var(--base-950);
   overflow: hidden;
+}
+
+.hero {
+  --hero-bg-image: url("/assets/images/hero/hero-bg.webp");
 }
 
 .hero::before,
@@ -1617,11 +1623,6 @@ textarea.form-control {
    PAGE HEADERS (inner pages)
 ───────────────────────────────────────── */
 .page-hero {
-  padding-top: 148px;
-  padding-bottom: 5rem;
-  background-color: var(--base-950);
-  overflow: hidden;
-  position: relative;
   z-index: 1;
 }
 
@@ -1666,6 +1667,26 @@ textarea.form-control {
 .breadcrumb a { color: var(--base-300); }
 .breadcrumb a:hover { color: var(--brand-primary); }
 .breadcrumb span { opacity: 0.4; }
+
+.page-hero h1 {
+  font-size: clamp(2.5rem, 6vw, 4.25rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+}
+
+.page-hero .text-overline {
+  margin-bottom: 0.75rem;
+}
+
+.page-hero .hero-lead {
+  color: var(--base-300);
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  line-height: 1.75;
+  margin-top: 1.25rem;
+  max-width: 640px;
+}
 
 /* ─────────────────────────────────────────
    DIVIDERS & DECORATIVE
@@ -2040,10 +2061,7 @@ textarea.form-control {
   .page-hero {
     padding-top: 128px;
     padding-bottom: 2.75rem;
-  }
-
-  .page-hero {
-    padding-bottom: 3.25rem;
+    min-height: clamp(500px, 78vh, 840px);
   }
 
   .hero-subtitle {
@@ -2074,10 +2092,7 @@ textarea.form-control {
   .page-hero {
     padding-top: 116px;
     padding-bottom: 2.25rem;
-  }
-
-  .page-hero {
-    padding-bottom: 3rem;
+    min-height: clamp(460px, 74vh, 780px);
   }
 
   .hero h1,
