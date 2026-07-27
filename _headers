@@ -2,6 +2,9 @@
 /assets/logo.webp
   Cache-Control: public, max-age=0, must-revalidate
 
+/assets/images/services/*
+  Cache-Control: public, max-age=86400, must-revalidate
+
 /assets/images/hero/*
   Cache-Control: public, max-age=86400, must-revalidate
 
