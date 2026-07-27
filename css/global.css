@@ -1160,6 +1160,81 @@ textarea.form-control {
   transform: scale(1.03);
 }
 
+/* Category placeholders — used where no unique photo asset is available */
+.project-card-thumb {
+  width: 100%;
+  height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: linear-gradient(135deg, var(--base-800), var(--base-700));
+}
+
+.project-card-thumb::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 25% 15%, rgba(196, 98, 45, 0.2), transparent 55%);
+}
+
+.project-card-thumb svg {
+  position: relative;
+  z-index: 1;
+  width: 52px;
+  height: 52px;
+  color: var(--brand-primary);
+  opacity: 0.9;
+}
+
+.project-card-thumb--peb {
+  background: linear-gradient(135deg, #1a2332 0%, #2a3545 55%, #1f2a38 100%);
+}
+
+.project-card-thumb--shed {
+  background: linear-gradient(135deg, #1c2633 0%, #2d3a4a 55%, #1a2430 100%);
+}
+
+.project-card-thumb--mezzanine {
+  background: linear-gradient(135deg, #1e2835 0%, #314052 55%, #1c2633 100%);
+}
+
+.project-card-thumb--geometric {
+  background: linear-gradient(135deg, #1a2430 0%, #354656 55%, #1f2b38 100%);
+}
+
+.project-card-thumb--industrial {
+  background: linear-gradient(135deg, #1c2834 0%, #2f4050 55%, #1a2632 100%);
+}
+
+.project-card-thumb--cladding {
+  background: linear-gradient(135deg, #1f2a36 0%, #384858 55%, #1c2733 100%);
+}
+
+.location-map-placeholder {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(160deg, rgba(13, 17, 23, 0.35), rgba(13, 17, 23, 0.75)),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.03) 0,
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px,
+      transparent 48px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.03) 0,
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px,
+      transparent 48px
+    ),
+    linear-gradient(160deg, var(--base-800), var(--base-900));
+}
+
 .project-card-body {
   padding: 1.75rem;
 }
