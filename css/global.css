@@ -924,6 +924,24 @@ body:has(.hero) .site-header:not(.scrolled) .btn-primary.btn-sm {
 
 .authority-dot svg { width: 16px; height: 16px; }
 
+.authority-section-img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  display: block;
+}
+
+.location-map-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+}
+
 /* ─────────────────────────────────────────
    COMPLIANCE BADGES
 ───────────────────────────────────────── */
