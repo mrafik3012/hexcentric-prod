@@ -1548,28 +1548,14 @@ textarea.form-control {
 
 /* ─────────────────────────────────────────
    SCROLL ANIMATIONS — Motion-driven (js/motion.js)
+   Content is visible by default; JS hides then reveals when Motion loads.
 ───────────────────────────────────────── */
-.fade-up,
-.scale-in,
-.card,
-.service-card,
-.project-card,
-.testimonial-card,
-.authority-item,
-.stat-item,
-.compliance-badge,
-.faq-item,
-.cta-banner,
-.section-header--center {
-  opacity: 0;
+.motion-pending {
+  contain: layout style paint;
 }
 
 .motion-revealed {
   opacity: 1;
-}
-
-.motion-pending {
-  contain: layout style paint;
 }
 
 .form-control,

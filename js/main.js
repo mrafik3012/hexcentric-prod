@@ -5,10 +5,17 @@
  */
 import { initMotion, getDrawerControls } from './motion.js';
 
-(function () {
+(async function () {
   'use strict';
 
-  initMotion();
+  try {
+    await initMotion();
+  } catch {
+    document.querySelectorAll('.fade-up, .scale-in, .card, .service-card, .project-card, .testimonial-card, .authority-item, .stat-item, .compliance-badge, .faq-item, .cta-banner, .section-header--center').forEach((el) => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
+  }
 
   /* ─── Header glassmorphism on scroll ─── */
   const header = document.querySelector('.site-header');
