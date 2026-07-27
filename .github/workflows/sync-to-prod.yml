@@ -2,8 +2,9 @@
 #
 # Setup:
 #   1. Create empty repo: https://github.com/mrafik3012/hexcentric-prod
-#   2. Classic PAT with "repo" scope → secret PROD_REPO_TOKEN on hexcentric-roof
-#   3. Run workflow manually
+#   2. Classic PAT with "repo" scope on your mrafik3012 account
+#   3. Add secret on hexcentric-roof: PROD_REPO_TOKEN = your PAT
+#   4. Run this workflow
 
 name: Sync to Production
 
@@ -20,39 +21,26 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Mirror main to hexcentric-prod
+      - name: Sync main to hexcentric-prod via gh CLI
         env:
-          PROD_TOKEN: ${{ secrets.PROD_REPO_TOKEN }}
+          GH_TOKEN: ${{ secrets.PROD_REPO_TOKEN }}
         run: |
           set -euo pipefail
 
-          if [ -z "${PROD_TOKEN}" ]; then
+          if [ -z "${GH_TOKEN}" ]; then
             echo "::error::PROD_REPO_TOKEN secret is not set."
             exit 1
           fi
 
-          echo "Checking token access to hexcentric-prod..."
-          HTTP_CODE=$(curl -s -o /tmp/prod_check.json -w "%{http_code}" \
-            -H "Authorization: Bearer ${PROD_TOKEN}" \
-            -H "Accept: application/vnd.github+json" \
-            https://api.github.com/repos/mrafik3012/hexcentric-prod)
+          echo "Checking token access..."
+          gh auth status
+          gh repo view mrafik3012/hexcentric-prod > /dev/null
+          gh repo view mrafik3012/hexcentric-roof > /dev/null
 
-          if [ "${HTTP_CODE}" != "200" ]; then
-            echo "::error::Token cannot access hexcentric-prod (HTTP ${HTTP_CODE})."
-            cat /tmp/prod_check.json
-            exit 1
-          fi
-
-          AUTH="https://x-access-token:${PROD_TOKEN}@github.com"
-
-          echo "Cloning hexcentric-roof with PAT..."
-          git clone --branch main --single-branch "${AUTH}/mrafik3012/hexcentric-roof.git" /tmp/roof
-
-          cd /tmp/roof
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-          echo "Pushing main → hexcentric-prod..."
-          git push --force "${AUTH}/mrafik3012/hexcentric-prod.git" main:main
+          echo "Syncing hexcentric-roof main → hexcentric-prod main..."
+          gh repo sync mrafik3012/hexcentric-prod \
+            --source mrafik3012/hexcentric-roof \
+            --branch main \
+            --force
 
           echo "✓ Synced to https://github.com/mrafik3012/hexcentric-prod"
