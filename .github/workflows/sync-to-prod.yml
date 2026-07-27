@@ -1,10 +1,6 @@
 # Sync main branch → mrafik3012/hexcentric-prod (production)
 #
-# Setup:
-#   1. Create empty repo: https://github.com/mrafik3012/hexcentric-prod
-#   2. Classic PAT with "repo" scope
-#   3. Secret on hexcentric-roof: PROD_REPO_TOKEN = your PAT
-#   4. Run workflow
+# Requires classic PAT with "repo" scope → secret PROD_REPO_TOKEN
 
 name: Sync to Production
 
@@ -32,25 +28,41 @@ jobs:
         run: |
           set -euo pipefail
 
+          # Trim whitespace/newlines from secret (common copy-paste issue)
+          PROD_TOKEN="$(printf '%s' "${PROD_TOKEN}" | tr -d '[:space:]')"
+
           if [ -z "${PROD_TOKEN}" ]; then
             echo "::error::PROD_REPO_TOKEN secret is not set."
             exit 1
           fi
 
-          echo "Creating git bundle from main..."
+          echo "Token length: ${#PROD_TOKEN} chars"
+
+          # Verify PAT can push via API
+          HTTP=$(curl -s -o /tmp/prod.json -w "%{http_code}" \
+            -H "Authorization: Bearer ${PROD_TOKEN}" \
+            https://api.github.com/repos/mrafik3012/hexcentric-prod)
+          if [ "${HTTP}" != "200" ]; then
+            echo "::error::PAT cannot access hexcentric-prod (HTTP ${HTTP})"
+            cat /tmp/prod.json
+            exit 1
+          fi
+
           git bundle create /tmp/site.bundle main
 
-          echo "Preparing isolated push environment (avoids GITHUB_TOKEN conflict)..."
           mkdir -p /tmp/prod-push && cd /tmp/prod-push
           git init -q
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "mrafik3012"
+          git config user.email "mohammedrafik3012@gmail.com"
           git pull -q /tmp/site.bundle main
           git branch -M main
 
-          echo "Pushing to hexcentric-prod with PAT..."
-          git -c credential.helper= push \
-            "https://x-access-token:${PROD_TOKEN}@github.com/mrafik3012/hexcentric-prod.git" \
-            main --force
+          # Unset Actions tokens so git cannot use github-actions[bot]
+          unset GITHUB_TOKEN GH_TOKEN CI
+
+          PROD_URL="https://x-access-token:${PROD_TOKEN}@github.com/mrafik3012/hexcentric-prod.git"
+
+          echo "Pushing to hexcentric-prod..."
+          GIT_TERMINAL_PROMPT=0 git -c credential.helper= push "${PROD_URL}" main --force
 
           echo "✓ Synced to https://github.com/mrafik3012/hexcentric-prod"
