@@ -2,9 +2,9 @@
 #
 # Setup:
 #   1. Create empty repo: https://github.com/mrafik3012/hexcentric-prod
-#   2. Classic PAT with "repo" scope on your mrafik3012 account
-#   3. Add secret on hexcentric-roof: PROD_REPO_TOKEN = your PAT
-#   4. Run this workflow
+#   2. Classic PAT with "repo" scope
+#   3. Secret on hexcentric-roof: PROD_REPO_TOKEN = your PAT
+#   4. Run workflow
 
 name: Sync to Production
 
@@ -21,26 +21,36 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
-      - name: Sync main to hexcentric-prod via gh CLI
+      - name: Checkout source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Bundle and push to hexcentric-prod
         env:
-          GH_TOKEN: ${{ secrets.PROD_REPO_TOKEN }}
+          PROD_TOKEN: ${{ secrets.PROD_REPO_TOKEN }}
         run: |
           set -euo pipefail
 
-          if [ -z "${GH_TOKEN}" ]; then
+          if [ -z "${PROD_TOKEN}" ]; then
             echo "::error::PROD_REPO_TOKEN secret is not set."
             exit 1
           fi
 
-          echo "Checking token access..."
-          gh auth status
-          gh repo view mrafik3012/hexcentric-prod > /dev/null
-          gh repo view mrafik3012/hexcentric-roof > /dev/null
+          echo "Creating git bundle from main..."
+          git bundle create /tmp/site.bundle main
 
-          echo "Syncing hexcentric-roof main → hexcentric-prod main..."
-          gh repo sync mrafik3012/hexcentric-prod \
-            --source mrafik3012/hexcentric-roof \
-            --branch main \
-            --force
+          echo "Preparing isolated push environment (avoids GITHUB_TOKEN conflict)..."
+          mkdir -p /tmp/prod-push && cd /tmp/prod-push
+          git init -q
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull -q /tmp/site.bundle main
+          git branch -M main
+
+          echo "Pushing to hexcentric-prod with PAT..."
+          git -c credential.helper= push \
+            "https://x-access-token:${PROD_TOKEN}@github.com/mrafik3012/hexcentric-prod.git" \
+            main --force
 
           echo "✓ Synced to https://github.com/mrafik3012/hexcentric-prod"
