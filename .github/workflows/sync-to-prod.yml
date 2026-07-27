@@ -1,6 +1,7 @@
 # Sync main branch → mrafik3012/hexcentric-prod (production)
 #
 # Requires classic PAT with "repo" scope → secret PROD_REPO_TOKEN
+# (workflow scope NOT required — dev CI files are stripped before prod push)
 
 name: Sync to Production
 
@@ -52,10 +53,17 @@ jobs:
 
           mkdir -p /tmp/prod-push && cd /tmp/prod-push
           git init -q
-          git config user.name "mrafik3012"
-          git config user.email "mohammedrafik3012@gmail.com"
+          git config user.name "Hexcentric Deploy"
+          git config user.email "actions@users.noreply.github.com"
           git pull -q /tmp/site.bundle main
           git branch -M main
+
+          # Production repo is static site only — exclude dev CI (avoids needing workflow PAT scope)
+          if [ -d .github ]; then
+            rm -rf .github
+            git add -A
+            git commit -m "Production deploy: exclude dev GitHub Actions workflows"
+          fi
 
           # Unset Actions tokens so git cannot use github-actions[bot]
           unset GITHUB_TOKEN GH_TOKEN CI
