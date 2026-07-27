@@ -1,24 +1,63 @@
 /**
  * Hexcentric — Motion animation engine
- * Uses Motion (motiondivision/motion) via ESM CDN for all mandated micro-interactions.
+ * Loads Motion from CDN at runtime; content stays visible if the library fails.
  */
-import { animate, inView, stagger } from 'https://cdn.jsdelivr.net/npm/motion@latest/+esm';
 
-const SPRING_SNAPPY = { type: 'spring', stiffness: 380, damping: 32, mass: 0.85 };
 const SPRING_DRAWER = { type: 'spring', stiffness: 280, damping: 28, mass: 0.9 };
 const EASE_OUT = [0.16, 1, 0.3, 1];
 
+const REVEAL_SELECTORS = [
+  '.fade-up',
+  '.scale-in',
+  '.card',
+  '.service-card',
+  '.project-card',
+  '.testimonial-card',
+  '.authority-item',
+  '.stat-item',
+  '.compliance-badge',
+  '.faq-item',
+  '.cta-banner',
+  '.section-header--center',
+].join(', ');
+
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+let animate = null;
+let inView = null;
+let stagger = null;
 
 function revealInstant(elements) {
   elements.forEach((el) => {
     el.style.opacity = '1';
     el.style.transform = 'none';
+    el.classList.add('motion-revealed');
+    el.classList.remove('motion-pending');
   });
 }
 
-/* ─── Hero: staggered entry for title, subhead, CTAs ─── */
-export function initHeroStagger() {
+function revealAllContent() {
+  revealInstant(document.querySelectorAll(REVEAL_SELECTORS));
+  document.querySelectorAll('.hero-eyebrow, .hero h1, .page-hero h1, .hero-subtitle, .hero-actions, .proof-strip, .page-hero .text-overline, .page-hero p.fade-up').forEach((el) => {
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+  });
+  document.querySelectorAll('.mobile-nav-link, .mobile-nav-actions').forEach((el) => {
+    el.style.opacity = '1';
+    el.style.transform = 'none';
+  });
+}
+
+async function loadMotionLibrary() {
+  try {
+    ({ animate, inView, stagger } = await import('https://cdn.jsdelivr.net/npm/motion@12.23.12/+esm'));
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function initHeroStagger() {
   const hero = document.querySelector('.hero, .page-hero');
   if (!hero) return;
 
@@ -28,10 +67,15 @@ export function initHeroStagger() {
 
   if (!targets.length) return;
 
-  if (reducedMotion) {
+  if (reducedMotion || !animate) {
     revealInstant(targets);
     return;
   }
+
+  targets.forEach((el) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(28px)';
+  });
 
   animate(
     targets,
@@ -40,25 +84,9 @@ export function initHeroStagger() {
   );
 }
 
-/* ─── Scroll: inView fade-ups for cards, features, case studies ─── */
-export function initScrollReveal() {
-  const selectors = [
-    '.fade-up',
-    '.scale-in',
-    '.card',
-    '.service-card',
-    '.project-card',
-    '.testimonial-card',
-    '.authority-item',
-    '.stat-item',
-    '.compliance-badge',
-    '.faq-item',
-    '.cta-banner',
-    '.section-header--center',
-  ].join(', ');
-
+function initScrollReveal() {
   const seen = new Set();
-  const elements = [...document.querySelectorAll(selectors)].filter((el) => {
+  const elements = [...document.querySelectorAll(REVEAL_SELECTORS)].filter((el) => {
     if (seen.has(el)) return false;
     if (el.closest('.hero, .page-hero')) return false;
     seen.add(el);
@@ -67,14 +95,15 @@ export function initScrollReveal() {
 
   if (!elements.length) return;
 
-  if (reducedMotion) {
-    elements.forEach((el) => el.classList.add('motion-revealed'));
+  if (reducedMotion || !inView) {
     revealInstant(elements);
     return;
   }
 
   elements.forEach((el) => {
     el.classList.add('motion-pending');
+    el.style.opacity = '0';
+    el.style.transform = el.classList.contains('scale-in') ? 'scale(0.96)' : 'translateY(24px)';
 
     inView(
       el,
@@ -94,10 +123,9 @@ export function initScrollReveal() {
   });
 }
 
-/* ─── Mobile drawer: spring slide-in + staggered links ─── */
 let drawerControls = null;
 
-export function initMobileDrawer() {
+function initMobileDrawer() {
   const mobileNav = document.querySelector('.mobile-nav');
   const mobileBtn = document.querySelector('.mobile-menu-btn');
   if (!mobileNav || !mobileBtn) return;
@@ -119,10 +147,14 @@ export function initMobileDrawer() {
   mobileNav.style.visibility = 'hidden';
   mobileNav.style.pointerEvents = 'none';
 
+  function showLinks() {
+    links.forEach((l) => { l.style.opacity = '1'; l.style.transform = 'none'; });
+    if (actions) { actions.style.opacity = '1'; actions.style.transform = 'none'; }
+  }
+
   function animateLinksIn() {
-    if (reducedMotion) {
-      links.forEach((l) => { l.style.opacity = '1'; l.style.transform = 'none'; });
-      if (actions) { actions.style.opacity = '1'; actions.style.transform = 'none'; }
+    if (reducedMotion || !animate) {
+      showLinks();
       return;
     }
 
@@ -139,6 +171,7 @@ export function initMobileDrawer() {
 
   function resetLinks() {
     if (linkAnim) linkAnim.stop();
+    if (!animate || reducedMotion) return;
     links.forEach((l) => {
       l.style.opacity = '0';
       l.style.transform = 'translateX(28px)';
@@ -160,10 +193,9 @@ export function initMobileDrawer() {
 
     resetLinks();
 
-    if (reducedMotion) {
+    if (reducedMotion || !animate) {
       mobileNav.style.transform = 'translateX(0)';
-      links.forEach((l) => { l.style.opacity = '1'; l.style.transform = 'none'; });
-      if (actions) { actions.style.opacity = '1'; actions.style.transform = 'none'; }
+      showLinks();
       return;
     }
 
@@ -176,7 +208,7 @@ export function initMobileDrawer() {
     mobileBtn.setAttribute('aria-expanded', 'false');
     document.body.style.overflow = '';
 
-    if (reducedMotion) {
+    if (reducedMotion || !animate) {
       mobileNav.style.transform = 'translateX(100%)';
       mobileNav.style.visibility = 'hidden';
       mobileNav.style.pointerEvents = 'none';
@@ -209,7 +241,13 @@ export function getDrawerControls() {
   return drawerControls;
 }
 
-export function initMotion() {
+export async function initMotion() {
+  const motionReady = await loadMotionLibrary();
+
+  if (!motionReady) {
+    revealAllContent();
+  }
+
   initHeroStagger();
   initScrollReveal();
   initMobileDrawer();
