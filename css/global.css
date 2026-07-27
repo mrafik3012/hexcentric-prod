@@ -475,8 +475,9 @@ p { margin-bottom: 0; }
   background: var(--base-100);
 }
 
-/* Inner pages with photo hero: dark header — avoids light bar over background image */
-body:has(.page-hero) .site-header:not(.scrolled) {
+/* Photo hero pages: dark header — avoids light bar over background image */
+body:has(.page-hero) .site-header:not(.scrolled),
+body:has(.hero) .site-header:not(.scrolled) {
   background: linear-gradient(
     180deg,
     rgba(13, 17, 23, 0.9) 0%,
@@ -486,29 +487,36 @@ body:has(.page-hero) .site-header:not(.scrolled) {
   border-bottom: none;
 }
 
-body:has(.page-hero) .site-header:not(.scrolled) .logo-name {
+body:has(.page-hero) .site-header:not(.scrolled) .logo-name,
+body:has(.hero) .site-header:not(.scrolled) .logo-name {
   color: var(--base-100);
   font-weight: 700;
 }
 
-body:has(.page-hero) .site-header:not(.scrolled) .logo-tagline {
+body:has(.page-hero) .site-header:not(.scrolled) .logo-tagline,
+body:has(.hero) .site-header:not(.scrolled) .logo-tagline {
   color: var(--base-300);
 }
 
-body:has(.page-hero) .site-header:not(.scrolled) .nav-link {
+body:has(.page-hero) .site-header:not(.scrolled) .nav-link,
+body:has(.hero) .site-header:not(.scrolled) .nav-link {
   color: var(--base-300);
 }
 
 body:has(.page-hero) .site-header:not(.scrolled) .nav-link:hover,
-body:has(.page-hero) .site-header:not(.scrolled) .nav-link.active {
+body:has(.page-hero) .site-header:not(.scrolled) .nav-link.active,
+body:has(.hero) .site-header:not(.scrolled) .nav-link:hover,
+body:has(.hero) .site-header:not(.scrolled) .nav-link.active {
   color: var(--base-100);
 }
 
-body:has(.page-hero) .site-header:not(.scrolled) .mobile-menu-btn span {
+body:has(.page-hero) .site-header:not(.scrolled) .mobile-menu-btn span,
+body:has(.hero) .site-header:not(.scrolled) .mobile-menu-btn span {
   background: var(--base-100);
 }
 
-body:has(.page-hero) .site-header:not(.scrolled) .btn-primary.btn-sm {
+body:has(.page-hero) .site-header:not(.scrolled) .btn-primary.btn-sm,
+body:has(.hero) .site-header:not(.scrolled) .btn-primary.btn-sm {
   box-shadow: 0 2px 12px rgba(196, 98, 45, 0.35);
 }
 
@@ -643,9 +651,7 @@ body:has(.page-hero) .site-header:not(.scrolled) .btn-primary.btn-sm {
   display: flex;
   align-items: center;
   background-color: var(--base-950);
-  background-image:
-    var(--hero-glow),
-    url("/assets/images/hero/hero-bg.webp");
+  background-image: url("/assets/images/hero/hero-bg.webp");
   background-size: cover;
   background-position: center 60%;
   background-repeat: no-repeat;
@@ -658,7 +664,7 @@ body:has(.page-hero) .site-header:not(.scrolled) .btn-primary.btn-sm {
   position: absolute;
   inset: 0;
   background: linear-gradient(to bottom,
-    rgba(13, 17, 23, 0.7) 0%,
+    rgba(13, 17, 23, 0.45) 0%,
     rgba(13, 17, 23, 0.5) 40%,
     rgba(13, 17, 23, 0.85) 100%
   );
