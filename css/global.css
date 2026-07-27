@@ -1940,6 +1940,11 @@ textarea.form-control {
   max-height: 400px;
 }
 
+.faq-answer[hidden] {
+  display: block;
+  max-height: 0;
+}
+
 /* ─────────────────────────────────────────
    SKIP LINK (accessibility)
 ───────────────────────────────────────── */
