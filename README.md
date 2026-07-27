@@ -145,41 +145,75 @@ If neither webhook nor EmailJS is configured, the form simulates success (1.2s d
 
 ---
 
-## Blog at Scale (100+ Posts/Month)
+## Blog for SEO, AEO & GEO (100+ Posts/Month)
 
-The current site is **static HTML** — it cannot support 100+ blog posts per month without a CMS.
+The blog exists to drive **organic search rankings (SEO)**, appear in **AI answer engines (AEO)** — ChatGPT, Perplexity, Google AI Overviews — and earn **citations in generative AI responses (GEO)**.
 
-**Recommended setup: WordPress on a subdomain**
+The main static site cannot publish at this volume. Use **WordPress on `blog.hexcentric.in`**.
 
 | Item | Detail |
 |------|--------|
 | URL | `https://blog.hexcentric.in` |
-| Platform | WordPress (one-click install on Hostinger) |
-| Why | Built-in editor, categories, tags, SEO plugins, scheduling, multiple authors |
-| Nav link | Already added to all pages → Blog |
+| Platform | WordPress (Hostinger one-click install) |
+| Nav link | Already on all pages → Blog |
+| AI context | `llms.txt` and `llms-full.txt` updated with blog strategy |
 
-### Hostinger WordPress Setup
+### Why WordPress for SEO/AEO/GEO
 
-1. In hPanel → **Websites** → **Add Website** → **WordPress**
-2. Choose subdomain: `blog.hexcentric.in`
-3. Install WordPress + enable SSL
-4. Install plugins: **Yoast SEO** (or Rank Math), **WP Super Cache**, **Wordfence** (security)
-5. Match brand colours: `#C4622D` (copper), `#0D1117` (dark background)
-6. Submit `https://blog.hexcentric.in/sitemap_index.xml` to Google Search Console
+- **Rank Math or Yoast SEO** — meta titles, schema, sitemaps, internal link suggestions
+- **Article + FAQ schema** — critical for AI answer extraction
+- **XML sitemap** — auto-submitted to Google Search Console
+- **Author pages** — E-E-A-T signals (MD bio, credentials)
+- **RSS feed** — `/feed/` for crawler discovery
 
-### Publishing Workflow
+### Hostinger Setup
 
-- Writers use the WordPress admin panel (`blog.hexcentric.in/wp-admin`)
-- Posts publish instantly — no code changes or Hostinger file uploads needed
-- At 100+ posts/month, consider **editorial roles** (Author vs Editor) and a **content calendar** plugin
+1. hPanel → **Websites** → **Add Website** → **WordPress** → subdomain `blog.hexcentric.in`
+2. Enable SSL (Let's Encrypt)
+3. Install plugins:
+   - **Rank Math SEO** (or Yoast) — schema, sitemaps, meta
+   - **WP Super Cache** — page speed (Core Web Vitals)
+   - **Wordfence** — security
+   - **Easy Table of Contents** — improves AI parsing of long posts
+4. Upload `assets/blog-robots.txt` to blog root as `robots.txt` (allows AI crawlers)
+5. Submit both sitemaps in Google Search Console:
+   - `https://hexcentric.in/sitemap.xml`
+   - `https://blog.hexcentric.in/sitemap_index.xml`
+6. Match brand: `#C4622D` copper, `#0D1117` dark background
 
-### Alternatives (if not WordPress)
+### Content Strategy (100+ Posts/Month)
 
-| Platform | Best for |
-|----------|----------|
-| **Ghost** (`blog.hexcentric.in`) | Clean writing experience, good SEO |
-| **Headless CMS** (Sanity, Contentful) | Custom front-end, needs developer for template changes |
-| **Medium / LinkedIn** | Easiest, but SEO stays on their domain |
+Volume only works with **quality and structure**. Each post should:
+
+| Rule | Why |
+|------|-----|
+| **Answer-first opening** (2–3 sentences) | AI engines extract the direct answer for AEO/GEO |
+| **800+ words, unique technical detail** | Avoids thin-content penalties |
+| **Topic clusters** linking to `/services#section` | Builds topical authority for SEO |
+| **Local keywords** (Coimbatore, Tamil Nadu, SIDCO) | Captures local search intent |
+| **Cite IS codes** (IS 800, IS 875, IS 2062) | Establishes expertise for AI citation |
+| **FAQ block** (3–5 Q&As) with FAQ schema | Powers featured snippets and AI answers |
+| **Author: Mr. Mohamed Jailani, B.E. Mech.** | E-E-A-T trust signal |
+| **Internal links** to services, projects, contact | Distributes link equity to main site |
+
+### Example Topic Clusters
+
+| Cluster | Links to | Example titles |
+|---------|----------|----------------|
+| PEB buildings | `/services#peb-buildings` | "PEB cost per sq ft in Tamil Nadu 2026" |
+| Space frames | `/services#structural-fabrication` | "Space frame vs portal frame: which is better?" |
+| Wind design | `/services` | "IS 875 Part 3 wind load for Coimbatore" |
+| Mezzanine | `/services#mezzanine-flooring` | "Install mezzanine without shutting factory" |
+| Local | `/contact` | "Best steel fabricator in SIDCO Coimbatore" |
+
+### Quality Warning
+
+100+ posts/month of thin or duplicate content will **hurt** SEO and reduce AI citation trust. Prioritise:
+- Unique technical depth per article
+- Varied formats (guides, comparisons, case studies, FAQs)
+- Editorial review before publish (avoid AI-generated spam patterns)
+
+See `llms-full.txt` → "Blog — SEO, AEO & GEO Knowledge Strategy" for the full content architecture.
 
 ---
 

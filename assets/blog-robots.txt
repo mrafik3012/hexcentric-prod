@@ -1,14 +1,14 @@
-# Hexcentric Roof Structures P Ltd — robots.txt
-# https://hexcentric.in/robots.txt
+# Hexcentric Blog — robots.txt
+# Deploy this file to blog.hexcentric.in/robots.txt
+# Allows all crawlers including AI/LLM bots for SEO, AEO, and GEO
 
 User-agent: *
 Allow: /
 
-# Sitemap
-Sitemap: https://hexcentric.in/sitemap.xml
 Sitemap: https://blog.hexcentric.in/sitemap_index.xml
+Sitemap: https://hexcentric.in/sitemap.xml
 
-# Allow major AI/LLM crawlers explicitly
+# AI / LLM crawlers — explicitly allowed for AEO & GEO
 User-agent: GPTBot
 Allow: /
 
@@ -39,26 +39,9 @@ Allow: /
 User-agent: Bytespider
 Allow: /
 
-# Standard web crawlers
+# Standard search engines
 User-agent: Googlebot
 Allow: /
 
 User-agent: Bingbot
 Allow: /
-
-User-agent: Slurp
-Allow: /
-
-User-agent: DuckDuckBot
-Allow: /
-
-User-agent: Baiduspider
-Allow: /
-
-User-agent: YandexBot
-Allow: /
-
-User-agent: facebot
-Allow: /
-
-# No restrictions — this site is fully public
