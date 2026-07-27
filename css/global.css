@@ -653,17 +653,13 @@ body:has(.hero) .site-header:not(.scrolled) .btn-primary.btn-sm {
   padding-top: 148px;
   padding-bottom: 5rem;
   overflow: hidden;
-  isolation: isolate;
 }
 
 .hero::before,
 .page-hero::before {
   content: '';
   position: absolute;
-  left: 0;
-  right: 0;
-  top: -14%;
-  bottom: -14%;
+  inset: 0;
   background-image: var(--hero-bg-image);
   background-size: cover;
   background-position: center 35%;
@@ -1624,9 +1620,9 @@ textarea.form-control {
   padding-top: 148px;
   padding-bottom: 5rem;
   background-color: var(--base-950);
-  overflow-x: clip;
+  overflow: hidden;
   position: relative;
-  isolation: isolate;
+  z-index: 1;
 }
 
 .page-hero--about {
@@ -1648,6 +1644,14 @@ textarea.form-control {
 .page-hero .filter-scroll {
   width: 100%;
   max-width: 100%;
+}
+
+/* Keep content below inner-page heroes above any paint bleed */
+.page-hero + .section,
+.page-hero + .section--sm,
+.page-hero + div {
+  position: relative;
+  z-index: 2;
 }
 
 .breadcrumb {
@@ -2033,6 +2037,10 @@ textarea.form-control {
     padding-bottom: 2.75rem;
   }
 
+  .page-hero {
+    padding-bottom: 3.25rem;
+  }
+
   .hero-subtitle {
     margin-bottom: 1.5rem;
   }
@@ -2061,6 +2069,10 @@ textarea.form-control {
   .page-hero {
     padding-top: 116px;
     padding-bottom: 2.25rem;
+  }
+
+  .page-hero {
+    padding-bottom: 3rem;
   }
 
   .hero h1,
