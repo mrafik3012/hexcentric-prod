@@ -105,9 +105,17 @@
   <!-- Contact Page -->
   <url>
     <loc>https://hexcentric.in/contact</loc>
-    <lastmod>2026-07-26</lastmod>
+    <lastmod>2026-07-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+  </url>
+
+  <!-- Blog (WordPress subdomain) -->
+  <url>
+    <loc>https://blog.hexcentric.in/</loc>
+    <lastmod>2026-07-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <!-- AI Crawler Files -->

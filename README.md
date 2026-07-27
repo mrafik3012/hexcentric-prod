@@ -89,8 +89,8 @@ git push origin main
 
 - [ ] Replace placeholder Unsplash images with actual project photos (images tagged `data-replace="true"`)
 - [ ] Replace `assets/logo.svg` with the official Hexcentric SVG or PNG logo
-- [ ] Update form webhook URL in `js/form.js` (line: `const WEBHOOK_URL = '...'`)
-  - Recommended: [Formspree](https://formspree.io), [n8n](https://n8n.io), [Make](https://make.com), or [EmailJS](https://emailjs.com)
+- [ ] Configure dual-email form in `js/form.js` (Make.com webhook or EmailJS)
+- [ ] Set up WordPress blog at `blog.hexcentric.in` for 100+ posts/month
 - [ ] Submit sitemap to Google Search Console: `https://hexcentric.in/sitemap.xml`
 - [ ] Verify JSON-LD schema at [schema.org validator](https://validator.schema.org/)
 - [ ] Test mobile navigation drawer on real device
@@ -100,11 +100,94 @@ git push origin main
 
 ---
 
-## Connecting the Contact Form
+## Connecting the Contact Form (Dual Email)
 
-The form currently runs in **demo mode** (simulated 1.2-second delay → success message). To connect to a real backend:
+On submit, the form sends **two emails**:
+1. **To support@hexcentric.com** — structured enquiry with all form fields
+2. **To the client** — branded thank-you confirmation
 
-### Option A: Formspree (Recommended for simplicity)
+Email is now a **required field** (needed for the client confirmation).
+
+### Option A: Make.com Webhook (Recommended)
+
+1. Create a free account at [make.com](https://www.make.com)
+2. Create a scenario: **Webhooks → Custom webhook** (trigger)
+3. Add two **Email** modules (or Gmail/SMTP):
+   - **Email 1 (admin):** To `{{admin_email}}`, Subject `{{admin_subject}}`, Body type HTML, Content `{{admin_html}}`
+   - **Email 2 (client):** To `{{client_email}}`, Subject `{{client_subject}}`, Body type HTML, Content `{{client_html}}`
+4. Copy the webhook URL and paste it in `js/form.js`:
+   ```js
+   const WEBHOOK_URL = 'https://hook.eu1.make.com/YOUR_WEBHOOK_ID';
+   ```
+5. Test on the live site (webhooks may not work on localhost)
+
+The webhook payload includes pre-built HTML in `admin_html` and `client_html`, plus raw fields in `fields`.
+
+### Option B: EmailJS
+
+1. Sign up at [emailjs.com](https://www.emailjs.com)
+2. Create an email service (Gmail, Outlook, or SMTP for support@hexcentric.com)
+3. Create **two templates** — one for admin, one for client — using variables like `{{message_html}}`, `{{name}}`, `{{email}}`
+4. Set the constants in `js/form.js`:
+   ```js
+   const EMAILJS = {
+     publicKey: 'your_public_key',
+     serviceId: 'your_service_id',
+     adminTemplateId: 'template_admin',
+     clientTemplateId: 'template_client',
+   };
+   ```
+5. In each EmailJS template, set the "To" field to `{{to_email}}`
+
+### Demo Mode
+
+If neither webhook nor EmailJS is configured, the form simulates success (1.2s delay) and logs the payload to the browser console for testing.
+
+---
+
+## Blog at Scale (100+ Posts/Month)
+
+The current site is **static HTML** — it cannot support 100+ blog posts per month without a CMS.
+
+**Recommended setup: WordPress on a subdomain**
+
+| Item | Detail |
+|------|--------|
+| URL | `https://blog.hexcentric.in` |
+| Platform | WordPress (one-click install on Hostinger) |
+| Why | Built-in editor, categories, tags, SEO plugins, scheduling, multiple authors |
+| Nav link | Already added to all pages → Blog |
+
+### Hostinger WordPress Setup
+
+1. In hPanel → **Websites** → **Add Website** → **WordPress**
+2. Choose subdomain: `blog.hexcentric.in`
+3. Install WordPress + enable SSL
+4. Install plugins: **Yoast SEO** (or Rank Math), **WP Super Cache**, **Wordfence** (security)
+5. Match brand colours: `#C4622D` (copper), `#0D1117` (dark background)
+6. Submit `https://blog.hexcentric.in/sitemap_index.xml` to Google Search Console
+
+### Publishing Workflow
+
+- Writers use the WordPress admin panel (`blog.hexcentric.in/wp-admin`)
+- Posts publish instantly — no code changes or Hostinger file uploads needed
+- At 100+ posts/month, consider **editorial roles** (Author vs Editor) and a **content calendar** plugin
+
+### Alternatives (if not WordPress)
+
+| Platform | Best for |
+|----------|----------|
+| **Ghost** (`blog.hexcentric.in`) | Clean writing experience, good SEO |
+| **Headless CMS** (Sanity, Contentful) | Custom front-end, needs developer for template changes |
+| **Medium / LinkedIn** | Easiest, but SEO stays on their domain |
+
+---
+
+## Connecting the Contact Form (Legacy — Single Email)
+
+The form previously ran in **demo mode** (simulated 1.2-second delay → success message). See **Connecting the Contact Form (Dual Email)** above for the current setup.
+
+### Option A: Formspree (Single email only)
 1. Sign up at [formspree.io](https://formspree.io) → Create a new form
 2. Copy your form endpoint (e.g. `https://formspree.io/f/abcdefgh`)
 3. Open `js/form.js` and replace:
