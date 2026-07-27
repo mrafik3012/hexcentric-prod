@@ -1,0 +1,39 @@
+# Sync main branch → mrafik3012/hexcentric-prod (production)
+#
+# Setup (one time):
+#   1. Create https://github.com/mrafik3012/hexcentric-prod (empty, no README)
+#   2. GitHub → hexcentric-roof → Settings → Secrets → Actions
+#   3. Add secret: PROD_REPO_TOKEN = your Personal Access Token (repo scope)
+#   4. Actions → Sync to Production → Run workflow
+
+name: Sync to Production
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Push to hexcentric-prod
+        env:
+          PROD_TOKEN: ${{ secrets.PROD_REPO_TOKEN }}
+        run: |
+          if [ -z "$PROD_TOKEN" ]; then
+            echo "::warning::PROD_REPO_TOKEN secret not set — skipping prod sync."
+            echo "Add a PAT with repo access to hexcentric-prod in repo Secrets → Actions."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote add prod "https://x-access-token:${PROD_TOKEN}@github.com/mrafik3012/hexcentric-prod.git"
+          git push prod HEAD:main --force
+          echo "✓ Synced to https://github.com/mrafik3012/hexcentric-prod"
