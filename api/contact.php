@@ -78,7 +78,7 @@ if ($errors) {
 $adminHtml = (string) ($data['admin_html'] ?? '');
 $clientHtml = (string) ($data['client_html'] ?? '');
 $adminSubject = (string) ($data['admin_subject'] ?? "New Enquiry — {$name} ({$projectTypeLabel})");
-$clientSubject = (string) ($data['client_subject'] ?? 'Thank you — Hexcentric Roof Structures');
+$clientSubject = (string) ($data['client_subject'] ?? 'A Personal Note from Mr. Jailani — Your Enquiry is Confirmed');
 
 if ($adminHtml === '' || $clientHtml === '') {
     require_once __DIR__ . '/email-templates.php';
