@@ -74,6 +74,30 @@
     'cladding-works': '/services#cladding-works',
   };
 
+  const FOUNDER = {
+    name: 'Mr. Mohamed Jailani',
+    title: 'Managing Director',
+    credentials: 'B.E. Mechanical Engineering · Anna University',
+    photo: SITE_URL + '/assets/images/og/md-mohamed-jailani.webp',
+    phone: '+91 80980 99334',
+    whatsapp: '918098099334',
+    quote: 'A client should never have to trust a fabricator blindly. Every decision we make is backed by a calculation they can verify.',
+  };
+
+  const PROJECT_PERSONAL_NOTES = {
+    'structural-fabrication': 'Geometric and space-frame structures are exactly why I founded Hexcentric. I will personally review the engineering requirements for your project before our first conversation.',
+    'peb-buildings': 'PEB projects demand precise span calculations and IS 875 wind load analysis. I will go through your site dimensions personally before we speak.',
+    'roofing-shed-works': 'Industrial roofing is where engineering meets execution. I will assess your shed requirements and natural lighting options myself.',
+    'multi-storey-buildings': 'Multi-storey steel frames require rigorous load-path analysis. I personally review every structural calculation before fabrication begins.',
+    'mezzanine-flooring': 'Mezzanine projects need careful load distribution without disrupting your operations. I will design a solution tailored to your floor plan.',
+    'prefab-homes': 'Prefab and LGSF construction is about precision and speed. I will walk you through our factory-built approach on our first call.',
+    'polycarbonate-roofing': 'Polycarbonate roofing can cut your electricity costs significantly. I will share real project data from our Coimbatore installations.',
+    'tensile-roofing': 'Tensile structures are an engineering art form. I will personally evaluate the site conditions and span requirements for your project.',
+    'upvc-roofing': 'UPVC roofing offers excellent durability for industrial applications. I will recommend the right profile and fixing system for your climate.',
+    'aluminium-roofing': 'Aluminium roofing systems need proper thermal expansion planning. I will ensure your design accounts for Coimbatore\'s temperature range.',
+    'cladding-works': 'Building envelope and cladding work affects both aesthetics and energy performance. I will review your facade requirements personally.',
+  };
+
   /* ─── Helpers ───────────────────────────────────────────────────── */
   function showAlert(el, message) {
     document.querySelectorAll('.alert').forEach(a => a.classList.remove('show'));
@@ -238,12 +262,38 @@
     return emailShell('New Project Enquiry', body, `New enquiry from ${data.name} — ${label(PROJECT_TYPE_LABELS, data.project_type)}`);
   }
 
+  function buildFounderSignature(referenceId) {
+    const waText = encodeURIComponent(`Hi Mr. Jailani, I submitted enquiry ${referenceId}. I'd like to discuss my project further.`);
+    return `
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-top:28px;border-top:1px solid #243041;padding-top:24px;">
+        <tr>
+          <td style="vertical-align:top;width:80px;padding-right:18px;">
+            <img src="${FOUNDER.photo}" alt="${escapeHtml(FOUNDER.name)}" width="72" height="72" style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid #C4622D;display:block;">
+          </td>
+          <td style="vertical-align:top;">
+            <p style="margin:0;font-size:16px;font-weight:700;color:#E8EDF0;">${escapeHtml(FOUNDER.name)}</p>
+            <p style="margin:3px 0 0;font-size:12px;font-weight:600;color:#C4622D;text-transform:uppercase;letter-spacing:0.06em;">${escapeHtml(FOUNDER.title)} · Hexcentric Roof Structures</p>
+            <p style="margin:6px 0 0;font-size:12px;color:#8CA0AC;">${escapeHtml(FOUNDER.credentials)}</p>
+            <p style="margin:10px 0 0;font-size:13px;line-height:1.6;color:#8CA0AC;">
+              <a href="tel:${FOUNDER.phone.replace(/\s/g, '')}" style="color:#C4622D;text-decoration:none;">${FOUNDER.phone}</a> ·
+              <a href="https://wa.me/${FOUNDER.whatsapp}?text=${waText}" style="color:#25D366;text-decoration:none;">WhatsApp me directly</a>
+            </p>
+          </td>
+        </tr>
+      </table>`;
+  }
+
   function buildClientEmail(data) {
     const firstName = data.name.trim().split(/\s+/)[0];
     const projectLabel = label(PROJECT_TYPE_LABELS, data.project_type);
     const sizeLabel = label(PROJECT_SIZE_LABELS, data.project_size);
     const serviceLink = SERVICE_LINKS[data.project_type] || '/services';
     const referenceId = 'HX-' + Date.now().toString(36).toUpperCase().slice(-6);
+    const personalNote = PROJECT_PERSONAL_NOTES[data.project_type]
+      || 'I will personally review your project requirements and reach out to you directly.';
+    const locationNote = data.location
+      ? ` I see your project is in <strong style="color:#E8EDF0;">${escapeHtml(data.location)}</strong> — we have delivered structures across Tamil Nadu from our SIDCO facility.`
+      : '';
 
     const summaryRows = [
       ['Reference', referenceId],
@@ -270,11 +320,33 @@
          </div>`
       : '';
 
+    const waText = encodeURIComponent(`Hi Mr. Jailani, I'm ${data.name}. I submitted enquiry ${referenceId} for ${projectLabel}. I'd like to discuss further.`);
+
     const body = `
+      <!-- Personal intro from MD -->
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+        <tr>
+          <td style="vertical-align:top;width:64px;padding-right:16px;">
+            <img src="${FOUNDER.photo}" alt="${escapeHtml(FOUNDER.name)}" width="56" height="56" style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid #C4622D;display:block;">
+          </td>
+          <td style="vertical-align:top;">
+            <p style="margin:0;font-size:11px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#C4622D;">A Personal Note</p>
+            <p style="margin:4px 0 0;font-size:13px;color:#8CA0AC;">From ${escapeHtml(FOUNDER.name)}, ${escapeHtml(FOUNDER.title)}</p>
+          </td>
+        </tr>
+      </table>
+
       <p style="margin:0 0 4px;font-size:18px;font-weight:700;color:#E8EDF0;">Dear ${escapeHtml(firstName)},</p>
-      <p style="margin:0 0 20px;font-size:15px;line-height:1.75;color:#B8C5CE;">
-        Thank you for choosing <strong style="color:#E8EDF0;">Hexcentric Roof Structures</strong>. Your enquiry for <strong style="color:#C4622D;">${escapeHtml(projectLabel)}</strong> has been received and assigned to our structural engineering team.
+      <p style="margin:0 0 16px;font-size:15px;line-height:1.8;color:#B8C5CE;">
+        Thank you for reaching out to Hexcentric. I'm <strong style="color:#E8EDF0;">Mohamed Jailani</strong>, and I've received your enquiry for <strong style="color:#C4622D;">${escapeHtml(projectLabel)}</strong>.${locationNote}
       </p>
+
+      <!-- Project-specific personal note -->
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:linear-gradient(135deg,rgba(196,98,45,0.12) 0%,rgba(196,98,45,0.04) 100%);border-radius:10px;border-left:3px solid #C4622D;margin-bottom:24px;">
+        <tr><td style="padding:18px 20px;">
+          <p style="margin:0;font-size:14px;line-height:1.75;color:#E8EDF0;font-style:italic;">"${escapeHtml(personalNote)}"</p>
+        </td></tr>
+      </table>
 
       <!-- Submission summary card -->
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#1A2332;border-radius:10px;border:1px solid #243041;margin-bottom:24px;">
@@ -285,16 +357,16 @@
         </td></tr>
       </table>
 
-      <!-- What happens next timeline -->
-      <p style="margin:0 0 14px;font-size:13px;font-weight:700;color:#C4622D;text-transform:uppercase;letter-spacing:0.08em;">What Happens Next</p>
+      <!-- Personal timeline — first person -->
+      <p style="margin:0 0 14px;font-size:13px;font-weight:700;color:#C4622D;text-transform:uppercase;letter-spacing:0.08em;">What I Will Do For You</p>
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
         <tr>
           <td style="padding:12px 0;vertical-align:top;width:36px;">
             <div style="width:28px;height:28px;background:#C4622D;border-radius:50%;text-align:center;line-height:28px;font-size:13px;font-weight:700;color:#fff;">1</div>
           </td>
           <td style="padding:12px 0 12px 8px;vertical-align:top;">
-            <p style="margin:0;font-size:14px;font-weight:600;color:#E8EDF0;">Engineering Review</p>
-            <p style="margin:4px 0 0;font-size:13px;line-height:1.6;color:#8CA0AC;">Our team reviews your project requirements and site details.</p>
+            <p style="margin:0;font-size:14px;font-weight:600;color:#E8EDF0;">I Review Your Project Personally</p>
+            <p style="margin:4px 0 0;font-size:13px;line-height:1.6;color:#8CA0AC;">I go through your requirements, site details, and structural scope — not delegated to a sales team.</p>
           </td>
         </tr>
         <tr>
@@ -302,8 +374,8 @@
             <div style="width:28px;height:28px;background:#243041;border-radius:50%;text-align:center;line-height:28px;font-size:13px;font-weight:700;color:#C4622D;">2</div>
           </td>
           <td style="padding:12px 0 12px 8px;vertical-align:top;">
-            <p style="margin:0;font-size:14px;font-weight:600;color:#E8EDF0;">Personal Callback</p>
-            <p style="margin:4px 0 0;font-size:13px;line-height:1.6;color:#8CA0AC;">A structural engineer calls you within <strong style="color:#E8EDF0;">24 business hours</strong> with a preliminary assessment.</p>
+            <p style="margin:0;font-size:14px;font-weight:600;color:#E8EDF0;">I Call You Within 24 Hours</p>
+            <p style="margin:4px 0 0;font-size:13px;line-height:1.6;color:#8CA0AC;">You will hear from me or my senior engineer directly — with a preliminary assessment, not a generic callback.</p>
           </td>
         </tr>
         <tr>
@@ -311,62 +383,50 @@
             <div style="width:28px;height:28px;background:#243041;border-radius:50%;text-align:center;line-height:28px;font-size:13px;font-weight:700;color:#C4622D;">3</div>
           </td>
           <td style="padding:12px 0 12px 8px;vertical-align:top;">
-            <p style="margin:0;font-size:14px;font-weight:600;color:#E8EDF0;">Free Site Assessment</p>
-            <p style="margin:4px 0 0;font-size:13px;line-height:1.6;color:#8CA0AC;">We schedule an on-site visit and deliver a detailed proposal — completely free, no obligation.</p>
+            <p style="margin:0;font-size:14px;font-weight:600;color:#E8EDF0;">Free On-Site Assessment</p>
+            <p style="margin:4px 0 0;font-size:13px;line-height:1.6;color:#8CA0AC;">I arrange a site visit and deliver a detailed engineering proposal — free, with no obligation.</p>
           </td>
         </tr>
       </table>
 
-      <!-- Trust signals -->
+      <!-- Founder philosophy quote -->
       <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#0D1117;border-radius:8px;border:1px solid #243041;margin-bottom:24px;">
-        <tr>
-          <td style="padding:16px;text-align:center;width:33%;">
-            <p style="margin:0;font-size:20px;font-weight:800;color:#C4622D;">15+</p>
-            <p style="margin:4px 0 0;font-size:11px;color:#8CA0AC;text-transform:uppercase;letter-spacing:0.05em;">Years Experience</p>
-          </td>
-          <td style="padding:16px;text-align:center;width:33%;border-left:1px solid #243041;border-right:1px solid #243041;">
-            <p style="margin:0;font-size:20px;font-weight:800;color:#C4622D;">500+</p>
-            <p style="margin:4px 0 0;font-size:11px;color:#8CA0AC;text-transform:uppercase;letter-spacing:0.05em;">Projects Delivered</p>
-          </td>
-          <td style="padding:16px;text-align:center;width:33%;">
-            <p style="margin:0;font-size:20px;font-weight:800;color:#C4622D;">24hr</p>
-            <p style="margin:4px 0 0;font-size:11px;color:#8CA0AC;text-transform:uppercase;letter-spacing:0.05em;">Response Time</p>
-          </td>
-        </tr>
+        <tr><td style="padding:20px 24px;">
+          <p style="margin:0 0 8px;font-size:11px;font-weight:700;color:#C4622D;text-transform:uppercase;letter-spacing:0.08em;">My Commitment to You</p>
+          <p style="margin:0;font-size:14px;line-height:1.75;color:#B8C5CE;font-style:italic;">"${escapeHtml(FOUNDER.quote)}"</p>
+          <p style="margin:10px 0 0;font-size:12px;color:#8CA0AC;">— ${escapeHtml(FOUNDER.name)}, ${escapeHtml(FOUNDER.title)}</p>
+        </td></tr>
       </table>
 
-      <!-- CTA buttons -->
+      <!-- Personal CTA buttons -->
       <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom:20px;">
         <tr>
           <td align="center" style="padding-bottom:10px;">
-            <a href="https://wa.me/918098099334?text=Hi%20Hexcentric%2C%20I%20submitted%20enquiry%20${escapeHtml(referenceId)}%20for%20${encodeURIComponent(projectLabel)}.%20Please%20share%20an%20update." style="display:inline-block;background:#25D366;color:#fff;text-decoration:none;padding:14px 28px;border-radius:8px;font-size:15px;font-weight:700;width:80%;text-align:center;">Chat on WhatsApp</a>
+            <a href="https://wa.me/${FOUNDER.whatsapp}?text=${waText}" style="display:inline-block;background:#25D366;color:#fff;text-decoration:none;padding:14px 28px;border-radius:8px;font-size:15px;font-weight:700;width:85%;text-align:center;">Message Me on WhatsApp</a>
           </td>
         </tr>
         <tr>
           <td align="center" style="padding-bottom:10px;">
-            <a href="tel:+918098099334" style="display:inline-block;background:#C4622D;color:#fff;text-decoration:none;padding:14px 28px;border-radius:8px;font-size:15px;font-weight:700;width:80%;text-align:center;">Call +91 80980 99334</a>
+            <a href="tel:${FOUNDER.phone.replace(/\s/g, '')}" style="display:inline-block;background:#C4622D;color:#fff;text-decoration:none;padding:14px 28px;border-radius:8px;font-size:15px;font-weight:700;width:85%;text-align:center;">Call Me — ${FOUNDER.phone}</a>
           </td>
         </tr>
         <tr>
           <td align="center">
-            <a href="${SITE_URL}${serviceLink}" style="display:inline-block;background:#1A2332;color:#E8EDF0;text-decoration:none;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:600;border:1px solid #243041;width:80%;text-align:center;">Explore ${escapeHtml(projectLabel)}</a>
+            <a href="${SITE_URL}${serviceLink}" style="display:inline-block;background:#1A2332;color:#E8EDF0;text-decoration:none;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:600;border:1px solid #243041;width:85%;text-align:center;">View ${escapeHtml(projectLabel)} Projects</a>
           </td>
         </tr>
       </table>
 
       <p style="margin:0;font-size:13px;line-height:1.7;color:#8CA0AC;">
-        Need to add more details? Simply reply to this email or WhatsApp us — reference <strong style="color:#E8EDF0;">${escapeHtml(referenceId)}</strong> for faster assistance.
+        Have more details to share? Reply to this email or WhatsApp me directly — reference <strong style="color:#E8EDF0;">${escapeHtml(referenceId)}</strong> so I can pull up your enquiry immediately.
       </p>
-      <p style="margin:16px 0 0;font-size:14px;line-height:1.7;color:#B8C5CE;">
-        With regards,<br>
-        <strong style="color:#E8EDF0;">Team Hexcentric</strong><br>
-        Structural Fabrication Specialists · Coimbatore
-      </p>`;
+
+      ${buildFounderSignature(referenceId)}`;
 
     return emailShell(
-      'Your Enquiry is Confirmed',
+      'A Personal Note — Your Enquiry is Confirmed',
       body,
-      `${firstName}, your ${projectLabel} enquiry is confirmed. Our team will call you within 24 hours.`
+      `${firstName}, Mohamed Jailani here. Your ${projectLabel} enquiry is confirmed — I'll call you within 24 hours.`
     );
   }
 
@@ -418,7 +478,7 @@
       admin_email: ADMIN_EMAIL,
       client_email: data.email,
       admin_subject: `New Enquiry — ${data.name} (${label(PROJECT_TYPE_LABELS, data.project_type)})`,
-      client_subject: 'Your Enquiry is Confirmed — Hexcentric Roof Structures',
+      client_subject: 'A Personal Note from Mr. Jailani — Your Enquiry is Confirmed',
       admin_html: adminHtml,
       client_html: clientHtml,
       reply_to: data.email,
@@ -487,7 +547,7 @@
       admin_email: ADMIN_EMAIL,
       client_email: payload.email,
       admin_subject: `New Enquiry — ${payload.name} (${payload.project_type_label})`,
-      client_subject: 'Your Enquiry is Confirmed — Hexcentric Roof Structures',
+      client_subject: 'A Personal Note from Mr. Jailani — Your Enquiry is Confirmed',
       admin_html: adminHtml,
       client_html: clientHtml,
       fields: payload,
