@@ -103,12 +103,24 @@ git push origin main
 ## Connecting the Contact Form (Dual Email)
 
 On submit, the form sends **two emails**:
-1. **To support@hexcentric.com** — structured enquiry with all form fields
-2. **To the client** — branded thank-you confirmation
+1. **To support@hexcentric.in** — structured enquiry with all form fields
+2. **To the client** — premium branded confirmation with CTAs and next steps
 
-Email is now a **required field** (needed for the client confirmation).
+Email is a **required field** (needed for the client confirmation).
 
-### Option A: Make.com Webhook (Recommended)
+### Option A: PHP API (Default — Hostinger)
+
+The form posts to `/api/contact.php` which sends both emails via PHP `mail()`.
+
+**Requirements:**
+- PHP enabled on Hostinger (default)
+- Domain email `support@hexcentric.in` configured in Hostinger → Emails
+
+Upload the `api/` folder alongside your site files. No additional configuration needed.
+
+If emails don't arrive, verify the mailbox exists in Hostinger and check spam folders. For higher deliverability, configure SMTP in `api/contact.php`.
+
+### Option B: Make.com Webhook
 
 1. Create a free account at [make.com](https://www.make.com)
 2. Create a scenario: **Webhooks → Custom webhook** (trigger)
@@ -123,7 +135,7 @@ Email is now a **required field** (needed for the client confirmation).
 
 The webhook payload includes pre-built HTML in `admin_html` and `client_html`, plus raw fields in `fields`.
 
-### Option B: EmailJS
+### Option C: EmailJS
 
 1. Sign up at [emailjs.com](https://www.emailjs.com)
 2. Create an email service (Gmail, Outlook, or SMTP for support@hexcentric.com)
@@ -139,9 +151,9 @@ The webhook payload includes pre-built HTML in `admin_html` and `client_html`, p
    ```
 5. In each EmailJS template, set the "To" field to `{{to_email}}`
 
-### Demo Mode
+### Fallback Behaviour
 
-If neither webhook nor EmailJS is configured, the form simulates success (1.2s delay) and logs the payload to the browser console for testing.
+The form tries backends in order: PHP API → Make.com webhook → EmailJS. If all fail, an error message is shown with phone and email alternatives.
 
 ---
 

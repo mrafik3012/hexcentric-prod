@@ -1,0 +1,6 @@
+# Prevent direct access to server-side template includes
+<Files "email-templates.php">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+</Files>
